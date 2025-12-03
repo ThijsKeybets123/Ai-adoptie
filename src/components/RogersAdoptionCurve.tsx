@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const stages = [
   { label: 'Innovators', percent: '2.5%', color: 'from-indigo-500 via-indigo-400 to-indigo-300' },
@@ -9,6 +10,30 @@ const stages = [
 ]
 
 export const RogersAdoptionCurve: React.FC = () => {
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const cardRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * -10; // Max 10 degrees
+    const rotateY = ((x - centerX) / centerX) * 10; // Max 10 degrees
+
+    setRotation({ x: rotateX, y: rotateY });
+  };
+
+  const handleMouseLeave = () => {
+    setRotation({ x: 0, y: 0 });
+  };
+
   return (
     <section className="relative overflow-hidden bg-slate-950 py-20 text-white">
       <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 20% 20%, rgba(59,130,246,0.25), transparent 60%)' }} />
@@ -26,7 +51,16 @@ export const RogersAdoptionCurve: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex-1 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur">
+        <div 
+          ref={cardRef}
+          onClick={() => navigate('/rogers-curve')}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className="flex-1 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur transition-transform duration-100 ease-out cursor-pointer"
+          style={{
+            transform: `perspective(1000px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
+          }}
+        >
           <div className="relative mb-8 h-48 w-full overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-500/30 via-purple-500/30 to-pink-500/30">
             <svg className="absolute inset-0 h-full w-full" viewBox="0 0 400 160" preserveAspectRatio="none">
               <path
