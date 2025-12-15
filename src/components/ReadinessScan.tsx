@@ -6,13 +6,7 @@ import { CheckCircle2, Send, Home } from "lucide-react";
 export const ReadinessScan = () => {
     const navigate = useNavigate();
     const [submitted, setSubmitted] = useState(false);
-
-    // Placeholder for future logic
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Hier kan later de score-berekening komen
-        setSubmitted(true);
-    };
+    const [answers, setAnswers] = useState<Record<number, number>>({});
 
     const questions = [
         {
@@ -42,6 +36,37 @@ export const ReadinessScan = () => {
         }
     ];
 
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubmitted(true);
+    };
+
+    const handleOptionChange = (questionId: number, optionIndex: number) => {
+        setAnswers(prev => ({
+            ...prev,
+            [questionId]: optionIndex
+        }));
+    };
+
+    const calculateScore = () => {
+        let totalScore = 0;
+        const maxScore = questions.length * 3;
+
+        // Optie 0 = 3 punten, Optie 1 = 2 punten, etc.
+        Object.values(answers).forEach((val) => {
+            totalScore += (3 - val);
+        });
+
+        return Math.round((totalScore / maxScore) * 100);
+    };
+
+    const getPersona = (score: number) => {
+        if (score >= 80) return { title: "AI Ambassadeur", color: "text-emerald-600", desc: "Je bent helemaal klaar om AI te leiden en anderen te inspireren!" };
+        if (score >= 60) return { title: "AI Enthusiast", color: "text-blue-600", desc: "Je ziet de waarde en hebt een goede basis. Tijd voor verdieping." };
+        if (score >= 40) return { title: "AI Explorer", color: "text-amber-600", desc: "Je bent nieuwsgierig maar hebt nog wat begeleiding nodig." };
+        return { title: "AI Starter", color: "text-slate-600", desc: "AI is nieuw voor je. Begin met de basis en ontdek wat het kan doen." };
+    };
+
     return (
         <section className="py-20 bg-background relative overflow-hidden">
             <div className="container mx-auto px-4">
@@ -57,21 +82,45 @@ export const ReadinessScan = () => {
 
                     <div className="bg-card border border-border/50 rounded-2xl shadow-sm p-8 md:p-10">
                         {submitted ? (
-                            <div className="text-center py-12 animate-in fade-in zoom-in duration-500">
-                                <div className="h-20 w-20 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mx-auto mb-6 text-emerald-600 dark:text-emerald-400">
-                                    <CheckCircle2 className="h-10 w-10" />
-                                </div>
-                                <h3 className="text-2xl font-bold mb-3">Bedankt voor het invullen!</h3>
-                                <p className="text-muted-foreground max-w-md mx-auto mb-8">
-                                    In de volledige versie van ons platform krijg je hier direct je persoonlijke AI-readiness score, inclusief een advies op maat en aanbevolen trainingen.
-                                </p>
-                                <Button
-                                    onClick={() => setSubmitted(false)}
-                                    variant="outline"
-                                >
-                                    Scan opnieuw doen
-                                </Button>
-                            </div>
+                            (() => {
+                                const score = calculateScore();
+                                const persona = getPersona(score);
+                                return (
+                                    <div className="text-center py-8 animate-in fade-in zoom-in duration-500">
+                                        <div className="mb-8 relative inline-block">
+                                            <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full"></div>
+                                            <div className="relative h-32 w-32 rounded-full border-8 border-primary/20 flex items-center justify-center mx-auto bg-background">
+                                                <span className="text-3xl font-black text-primary">{score}%</span>
+                                            </div>
+                                        </div>
+
+                                        <h3 className={`text-3xl font-bold mb-2 ${persona.color}`}>{persona.title}</h3>
+                                        <p className="text-xl text-foreground font-medium mb-6">Jouw AI Readiness Score</p>
+
+                                        <p className="text-muted-foreground max-w-md mx-auto mb-8 text-lg">
+                                            {persona.desc}
+                                        </p>
+
+                                        <div className="bg-muted/50 p-6 rounded-xl mb-8">
+                                            <h4 className="font-semibold mb-2 text-foreground">Aanbevolen Training:</h4>
+                                            <p className="text-sm text-muted-foreground">
+                                                {score < 50 ? "Start met onze basismodule 'AI Fundamentals' om vertrouwd te raken." : "Bekijk onze 'Advanced Prompting' sessies om je skills naar een hoger niveau te tillen."}
+                                            </p>
+                                        </div>
+
+                                        <Button
+                                            onClick={() => {
+                                                setSubmitted(false);
+                                                setAnswers({});
+                                            }}
+                                            variant="outline"
+                                            size="lg"
+                                        >
+                                            Scan opnieuw doen
+                                        </Button>
+                                    </div>
+                                );
+                            })()
                         ) : (
                             <form onSubmit={handleSubmit} className="space-y-8">
                                 {questions.map((q) => (
@@ -88,6 +137,8 @@ export const ReadinessScan = () => {
                                                         id={`q${q.id}-opt${idx}`}
                                                         className="peer sr-only"
                                                         required
+                                                        onChange={() => handleOptionChange(q.id, idx)}
+                                                        checked={answers[q.id] === idx}
                                                     />
                                                     <label
                                                         htmlFor={`q${q.id}-opt${idx}`}

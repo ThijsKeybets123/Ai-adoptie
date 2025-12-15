@@ -335,6 +335,37 @@ const Assessment = () => {
 						</div>
 					</div>
 
+					{/* Benchmark Statistics Section */}
+					<div className="mb-12 w-full max-w-lg mx-auto bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-6 border border-slate-100 dark:border-slate-800">
+						<h3 className="text-lg font-bold mb-4 text-slate-900 dark:text-white flex items-center justify-center gap-2">
+							Benchmark Resultaten
+						</h3>
+						<div className="space-y-4">
+							<div>
+								<div className="flex justify-between text-sm mb-1">
+									<span className="font-medium text-slate-700 dark:text-slate-300">Uw Organisatie</span>
+									<span className="font-bold text-primary">{score}%</span>
+								</div>
+								<div className="h-3 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+									<div className="h-full bg-primary rounded-full transition-all duration-1000" style={{ width: `${score}%` }} />
+								</div>
+							</div>
+
+							<div>
+								<div className="flex justify-between text-sm mb-1">
+									<span className="font-medium text-slate-500 dark:text-slate-400">Marktgemiddelde</span>
+									<span className="font-bold text-slate-500 dark:text-slate-400">42%</span>
+								</div>
+								<div className="h-3 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+									<div className="h-full bg-slate-400 dark:bg-slate-600 rounded-full" style={{ width: '42%' }} />
+								</div>
+							</div>
+						</div>
+						<p className="text-xs text-slate-400 mt-4 italic">
+							Gebaseerd op geaggregeerde data van vergelijkbare organisaties in de sector.
+						</p>
+					</div>
+
 					<div className="bg-slate-50 dark:bg-slate-950/50 rounded-2xl p-8 md:p-10 mb-12 text-left border border-slate-100 dark:border-slate-800 relative overflow-hidden">
 						<div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-500 to-cyan-500"></div>
 						<h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
