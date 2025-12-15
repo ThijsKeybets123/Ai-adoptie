@@ -36,6 +36,8 @@ import {
   Briefcase,
   Smile,
   CheckCircle2,
+  Scale,
+  Code2,
 } from "lucide-react";
 import {
   Carousel,
@@ -709,6 +711,62 @@ const Index = () => {
             >
               Maak een account aan
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <section className="py-16 bg-background border-t border-border">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+            {/* Deel 1: Ethiek */}
+            <div className="space-y-6">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-primary/10 rounded-lg text-primary">
+                  <Scale className="h-6 w-6" />
+                </div>
+                <h3 className="text-2xl font-bold text-foreground">Ethiek & Privacy</h3>
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                Dit platform houdt rekening met de privacy van medewerkers en een zorgvuldige omgang met data, in lijn met de basisprincipes van de AI Act.
+              </p>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3 text-sm text-foreground/80">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span>Transparantie over wat er precies wordt gemeten</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm text-foreground/80">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span>Geen misbruik van data voor andere doeleinden</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm text-foreground/80">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span>Resultaten bedoeld voor ontwikkeling, niet voor straf</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Deel 2: Project Info */}
+            <div className="space-y-6">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg text-blue-600 dark:text-blue-400">
+                  <Code2 className="h-6 w-6" />
+                </div>
+                <h3 className="text-2xl font-bold text-foreground">Over dit project</h3>
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                Dit platform is ontwikkeld in het kader van een Minor AI. Met als doel: bedrijven helpen om AI-vaardigheid van medewerkers in kaart te brengen.
+              </p>
+              <div className="bg-muted/50 p-4 rounded-xl border border-border/50">
+                <p className="text-sm font-semibold mb-2">Gebruikte technieken:</p>
+                <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
+                  <span className="bg-background px-2 py-1 rounded-md border shadow-sm">HTML / CSS / TSX</span>
+                  <span className="bg-background px-2 py-1 rounded-md border shadow-sm">React & Vite</span>
+                  <span className="bg-background px-2 py-1 rounded-md border shadow-sm">GitHub Pages</span>
+                  <span className="bg-background px-2 py-1 rounded-md border shadow-sm">Assisted by Antigravity</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
