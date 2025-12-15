@@ -243,6 +243,15 @@ const Assessment = () => {
 						</Button>
 						<span className="font-semibold text-foreground">Medewerker Scan</span>
 					</div>
+					<Button
+						variant="outline"
+						size="sm"
+						onClick={() => navigate("/")}
+						className="gap-2"
+					>
+						<Home className="h-4 w-4" />
+						Home
+					</Button>
 				</div>
 				<div className="-mt-20">
 					{/* Negative margin to pull the section up slightly as ReadinessScan has lots of top padding */}
