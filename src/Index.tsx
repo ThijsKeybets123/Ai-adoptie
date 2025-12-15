@@ -7,6 +7,7 @@ import { BarrierDialog } from "@/components/BarrierDialog";
 import { StrategyDialog } from "@/components/StrategyDialog";
 import { Chatbot } from "@/components/Chatbot";
 import { RogersAdoptionCurve } from "@/components/RogersAdoptionCurve";
+import { BenefitDialog } from "@/components/BenefitDialog";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import {
@@ -220,9 +221,52 @@ const impactStats = [
   },
 ];
 
+const benefits = [
+  {
+    id: 1,
+    title: "Inzicht in AI-vaardigheid",
+    icon: Users,
+    colorClass: "bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400",
+    description: "Zie direct hoe vaardig elk team is. Identificeer koplopers en medewerkers die extra ondersteuning nodig hebben.",
+    details: [
+      "Dashboard met scores per afdeling",
+      "Benchmarken tegen marktstandaarden",
+      "Identificatie van interne 'AI-kampioenen'",
+      "Inzicht in 'Prompt Engineering' vaardigheden"
+    ]
+  },
+  {
+    id: 2,
+    title: "Gerichte Trainingen",
+    icon: Target,
+    colorClass: "bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400",
+    description: "Bepaal op basis van data welke trainingen echt nodig zijn, in plaats van een 'one-size-fits-all' aanpak.",
+    details: [
+      "Persoonlijke leerpaden per medewerker",
+      "Besparing op onnodige trainingskosten",
+      "Focus op relevante tools voor specifieke rollen",
+      "Meetbaar rendement op leerinvesteringen"
+    ]
+  },
+  {
+    id: 3,
+    title: "Succesvolle Adoptie",
+    icon: TrendingUp,
+    colorClass: "bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400",
+    description: "Vergroot de kans dat AI-projecten daadwerkelijk worden omarmd door de juiste voorwaarden te scheppen.",
+    details: [
+      "Verlagen van weerstand door angst weg te nemen",
+      "Hogere ROI op aangeschafte AI-licenties",
+      "Versnellen van innovatiecycli",
+      "Cultuurverandering naar 'AI-first' werken"
+    ]
+  }
+];
+
 const Index = () => {
   const [selectedBarrier, setSelectedBarrier] = useState<typeof barriers[0] | null>(null);
   const [selectedStrategy, setSelectedStrategy] = useState<typeof strategies[0] | null>(null);
+  const [selectedBenefit, setSelectedBenefit] = useState<typeof benefits[0] | null>(null);
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -363,35 +407,24 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="bg-card p-8 rounded-2xl shadow-sm border border-border/50 hover:shadow-md transition-all">
-              <div className="h-12 w-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6 text-blue-600 dark:text-blue-400">
-                <Users className="h-6 w-6" />
+            {benefits.map((benefit, index) => (
+              <div
+                key={benefit.id}
+                className="bg-card p-8 rounded-2xl shadow-sm border border-border/50 hover:shadow-md transition-all cursor-pointer group"
+                onClick={() => setSelectedBenefit(benefit)}
+              >
+                <div className={`h-12 w-12 ${benefit.colorClass} rounded-xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110`}>
+                  <benefit.icon className="h-6 w-6" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">{benefit.title}</h3>
+                <p className="text-muted-foreground">
+                  {benefit.description}
+                </p>
+                <div className="mt-4 flex items-center text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                  Lees meer <ArrowRight className="ml-1 h-4 w-4" />
+                </div>
               </div>
-              <h3 className="text-xl font-semibold mb-3">Inzicht in AI-vaardigheid</h3>
-              <p className="text-muted-foreground">
-                Zie direct hoe vaardig elk team is. Identificeer koplopers en medewerkers die extra ondersteuning nodig hebben.
-              </p>
-            </div>
-
-            <div className="bg-card p-8 rounded-2xl shadow-sm border border-border/50 hover:shadow-md transition-all">
-              <div className="h-12 w-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mb-6 text-purple-600 dark:text-purple-400">
-                <Target className="h-6 w-6" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Gerichte Trainingen</h3>
-              <p className="text-muted-foreground">
-                Bepaal op basis van data welke trainingen echt nodig zijn, in plaats van een 'one-size-fits-all' aanpak.
-              </p>
-            </div>
-
-            <div className="bg-card p-8 rounded-2xl shadow-sm border border-border/50 hover:shadow-md transition-all">
-              <div className="h-12 w-12 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl flex items-center justify-center mb-6 text-emerald-600 dark:text-emerald-400">
-                <TrendingUp className="h-6 w-6" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Succesvolle Adoptie</h3>
-              <p className="text-muted-foreground">
-                Vergroot de kans dat AI-projecten daadwerkelijk worden omarmd door de juiste voorwaarden te scheppen.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -600,6 +633,15 @@ const Index = () => {
         icon={selectedStrategy?.icon ?? Lightbulb}
         actions={selectedStrategy?.actions}
         example={selectedStrategy?.example}
+      />
+
+      <BenefitDialog
+        open={!!selectedBenefit}
+        onOpenChange={(open) => !open && setSelectedBenefit(null)}
+        title={selectedBenefit?.title ?? ""}
+        description={selectedBenefit?.description ?? ""}
+        icon={selectedBenefit?.icon}
+        details={selectedBenefit?.details}
       />
 
       <Chatbot />
