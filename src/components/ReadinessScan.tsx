@@ -71,14 +71,6 @@ export const ReadinessScan = () => {
                                 >
                                     Scan opnieuw doen
                                 </Button>
-                                <Button
-                                    onClick={() => navigate("/")}
-                                    className="ml-4"
-                                    variant="ghost"
-                                >
-                                    <Home className="mr-2 h-4 w-4" />
-                                    Terug naar Home
-                                </Button>
                             </div>
                         ) : (
                             <form onSubmit={handleSubmit} className="space-y-8">
@@ -109,7 +101,7 @@ export const ReadinessScan = () => {
                                     </div>
                                 ))}
 
-                                <div className="pt-6 flex gap-4">
+                                <div className="pt-6">
                                     <Button
                                         type="submit"
                                         className="w-full md:w-auto text-lg px-8 py-6"
@@ -118,21 +110,12 @@ export const ReadinessScan = () => {
                                         Bekijk je score
                                         <Send className="ml-2 h-5 w-5" />
                                     </Button>
-                                    <Button
-                                        type="button"
-                                        onClick={() => navigate("/")}
-                                        variant="outline"
-                                        size="lg"
-                                        className="w-full md:w-auto text-lg px-8 py-6"
-                                    >
-                                        Terug naar Home
-                                    </Button>
                                 </div>
                             </form>
                         )}
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     );
 };

@@ -239,7 +239,6 @@ const Assessment = () => {
 							className="gap-2"
 						>
 							<ArrowLeft className="h-4 w-4" />
-							Kies ander assessment
 						</Button>
 						<span className="font-semibold text-foreground">Medewerker Scan</span>
 					</div>
