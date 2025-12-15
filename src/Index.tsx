@@ -8,6 +8,7 @@ import { StrategyDialog } from "@/components/StrategyDialog";
 import { Chatbot } from "@/components/Chatbot";
 import { RogersAdoptionCurve } from "@/components/RogersAdoptionCurve";
 import { BenefitDialog } from "@/components/BenefitDialog";
+import { ReadinessScan } from "@/components/ReadinessScan";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import {
@@ -539,6 +540,8 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      <ReadinessScan />
 
       {/* Impact stats */}
       <section className="py-16 bg-muted/30">
