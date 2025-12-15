@@ -195,20 +195,31 @@ export const ReadinessScan = () => {
                             return (
                                 <div key={d.id} className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col hover:shadow-md transition-shadow">
                                     <div className="flex justify-between items-start mb-4">
-                                        <div className={`p-3 rounded-xl ${d.color}`}>
-                                            <Icon className="h-6 w-6" />
+                                        <div className={`p-4 rounded-2xl ${d.color} bg-opacity-20`}>
+                                            <Icon className="h-8 w-8" />
                                         </div>
-                                        <div className="text-2xl font-bold text-slate-800 dark:text-slate-200">{score}</div>
+                                        <div className="flex flex-col items-end">
+                                            <div className="text-3xl font-black text-slate-900 dark:text-white">{score}</div>
+                                            <div className="text-xs text-slate-400 uppercase tracking-wider font-bold">Score</div>
+                                        </div>
                                     </div>
-                                    <h4 className="font-bold text-lg mb-2">{d.title}</h4>
-                                    <div className={`text-sm font-semibold mb-3 ${inter.color}`}>{inter.label}</div>
-                                    <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 flex-1">
-                                        {score < 2.5 && "Tip: Start met een basis AI-training of introductievideo."}
-                                        {score >= 2.5 && score < 3.5 && "Tip: Volg een praktische workshop en probeer eens een nieuwe tool."}
-                                        {score >= 3.5 && "Tip: Word AI-champion binnen je team en deel je kennis!"}
-                                    </p>
-                                    <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
-                                        <div className={`h-full ${d.color.split(' ')[0].replace('text', 'bg')}`} style={{ width: `${(score / 5) * 100}%` }} />
+
+                                    <h4 className="font-bold text-xl mb-1 text-slate-900 dark:text-white">{d.title}</h4>
+                                    <div className={`text-sm font-bold mb-6 ${inter.color} uppercase tracking-wide`}>{inter.label}</div>
+
+                                    <div className="mt-auto">
+                                        <div className="flex justify-between text-xs text-slate-400 mb-2 font-medium">
+                                            <span>Beginner</span>
+                                            <span>Expert</span>
+                                        </div>
+                                        <div className="h-4 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden shadow-inner">
+                                            <div
+                                                className={`h-full ${d.color.split(' ')[0].replace('text', 'bg')} transition-all duration-1000 ease-out relative`}
+                                                style={{ width: `${(score / 5) * 100}%` }}
+                                            >
+                                                <div className="absolute top-0 right-0 bottom-0 w-[2px] bg-white/50" />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             );
