@@ -269,9 +269,13 @@ const benefits = [
 
 const testModules = [
   {
+    id: 1,
     title: "Basiskennis AI",
     description: "Een fundamentele toetsing van AI-geletterdheid. Begrijpen medewerkers de kernconcepten?",
     icon: BookOpen,
+    color: "text-sky-600 dark:text-sky-400",
+    bgColor: "bg-sky-100 dark:bg-sky-900/30",
+    borderColor: "hover:border-sky-200 dark:hover:border-sky-800",
     bullets: [
       "Wat is AI precies?",
       "Machine Learning vs. traditionele software",
@@ -279,9 +283,13 @@ const testModules = [
     ]
   },
   {
+    id: 2,
     title: "Toepassing in werk",
     description: "Hoe vertalen medewerkers AI-kennis naar de dagelijkse praktijk? Van theorie naar doen.",
     icon: Briefcase,
+    color: "text-amber-600 dark:text-amber-400",
+    bgColor: "bg-amber-100 dark:bg-amber-900/30",
+    borderColor: "hover:border-amber-200 dark:hover:border-amber-800",
     bullets: [
       "Herkennen van AI-kansen in processen",
       "Effectief werken met AI-tools (bv. ChatGPT)",
@@ -289,9 +297,13 @@ const testModules = [
     ]
   },
   {
+    id: 3,
     title: "Mindset & Adoptie",
     description: "De zachte kant van innovatie. Is er bereidheid om te veranderen en te leren?",
     icon: Smile,
+    color: "text-rose-600 dark:text-rose-400",
+    bgColor: "bg-rose-100 dark:bg-rose-900/30",
+    borderColor: "hover:border-rose-200 dark:hover:border-rose-800",
     bullets: [
       "Openheid voor experimenteren",
       "Samenwerken met data & IT teams",
@@ -304,6 +316,7 @@ const Index = () => {
   const [selectedBarrier, setSelectedBarrier] = useState<typeof barriers[0] | null>(null);
   const [selectedStrategy, setSelectedStrategy] = useState<typeof strategies[0] | null>(null);
   const [selectedBenefit, setSelectedBenefit] = useState<typeof benefits[0] | null>(null);
+  const [expandedModule, setExpandedModule] = useState<number | null>(null);
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -479,28 +492,50 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {testModules.map((module, index) => (
-              <div
-                key={module.title}
-                className="bg-card p-8 rounded-2xl shadow-sm border border-border/50 hover:shadow-lg transition-all hover:-translate-y-1 group"
-              >
-                <div className="h-14 w-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform duration-300">
-                  <module.icon className="h-7 w-7" />
+            {testModules.map((module) => {
+              const isExpanded = expandedModule === module.id;
+
+              return (
+                <div
+                  key={module.id}
+                  className={`bg-card p-8 rounded-2xl shadow-sm border transition-all duration-300 cursor-pointer group ${isExpanded ? 'ring-2 ring-primary/5 shadow-lg' : 'border-border/50 hover:shadow-lg hover:-translate-y-1'} ${module.borderColor}`}
+                  onClick={() => setExpandedModule(isExpanded ? null : module.id)}
+                >
+                  <div className="flex justify-between items-start mb-6">
+                    <div className={`h-14 w-14 ${module.bgColor} ${module.color} rounded-2xl flex items-center justify-center transition-transform duration-300 ${!isExpanded && 'group-hover:scale-110'}`}>
+                      <module.icon className="h-7 w-7" />
+                    </div>
+                    <div className={`p-2 rounded-full hover:bg-muted transition-colors ${isExpanded ? 'bg-muted' : ''}`}>
+                      <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
+                    </div>
+                  </div>
+
+                  <h3 className="text-2xl font-bold mb-3 text-foreground">{module.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {module.description}
+                  </p>
+
+                  <div className={`grid transition-all duration-300 ease-in-out ${isExpanded ? 'grid-rows-[1fr] opacity-100 mt-6 pt-6 border-t border-border/50' : 'grid-rows-[0fr] opacity-0'}`}>
+                    <div className="overflow-hidden">
+                      <ul className="space-y-3">
+                        {module.bullets.map((bullet, idx) => (
+                          <li key={idx} className="flex items-start gap-3 text-sm text-foreground/80">
+                            <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${module.color}`} />
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {!isExpanded && (
+                    <div className="mt-4 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                      Bekijk details
+                    </div>
+                  )}
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-foreground">{module.title}</h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  {module.description}
-                </p>
-                <ul className="space-y-3">
-                  {module.bullets.map((bullet, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-sm text-foreground/80">
-                      <div className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
