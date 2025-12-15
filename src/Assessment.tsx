@@ -256,33 +256,45 @@ const Assessment = () => {
 	// 2. Employee Scan
 	if (assessmentType === 'employee') {
 		return (
-			<div className="min-h-screen bg-background flex flex-col">
-				<div className="p-4 border-b border-border">
-					<div className="container mx-auto flex items-center justify-between">
+			<div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-500">
+				{/* Header for Employee Scan */}
+				<div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50">
+					<div className="container mx-auto px-4 h-16 flex items-center justify-between">
+						<div className="flex items-center gap-4">
+							<Button
+								variant="ghost"
+								onClick={() => {
+									setAssessmentType(null);
+									setStarted(false);
+								}}
+								className="gap-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white"
+							>
+								<ArrowLeft className="h-4 w-4" />
+								<span className="hidden sm:inline">Kies ander assessment</span>
+							</Button>
+							<div className="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-2 hidden sm:block"></div>
+							<div className="flex items-center gap-3">
+								<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600">
+									<User className="h-4 w-4" />
+								</span>
+								<span className="font-bold text-slate-900 dark:text-white">
+									Medewerker Scan
+								</span>
+							</div>
+						</div>
 						<Button
 							variant="ghost"
-							onClick={() => {
-								setAssessmentType(null);
-								setStarted(false);
-							}}
-							className="gap-2"
+							size="sm"
+							onClick={() => navigate("/")}
+							className="gap-2 text-slate-600 hover:text-primary hover:bg-primary/5"
 						>
-							<ArrowLeft className="h-4 w-4" />
+							<Home className="h-4 w-4" />
+							<span className="hidden sm:inline">Home</span>
 						</Button>
-						<span className="font-semibold text-foreground">Medewerker Scan</span>
 					</div>
-					<Button
-						variant="outline"
-						size="sm"
-						onClick={() => navigate("/")}
-						className="gap-2"
-					>
-						<Home className="h-4 w-4" />
-						Home
-					</Button>
 				</div>
-				<div className="-mt-20">
-					{/* Negative margin to pull the section up slightly as ReadinessScan has lots of top padding */}
+
+				<div className="container mx-auto px-4 py-8">
 					<ReadinessScan />
 				</div>
 			</div>
@@ -342,8 +354,9 @@ const Assessment = () => {
 					</div>
 
 					<div className="flex flex-col sm:flex-row gap-4 justify-center">
-						<Button onClick={() => navigate("/")} variant="outline" size="lg" className="h-14 px-8 text-lg rounded-xl border-2 hover:bg-slate-50 dark:hover:bg-slate-800">
-							Terug naar Dashboard
+						<Button onClick={() => navigate("/")} variant="outline" size="lg" className="h-14 px-8 text-lg rounded-xl border-2 hover:bg-slate-50 dark:hover:bg-slate-800 gap-2">
+							<Home className="h-5 w-5" />
+							Terug naar Home
 						</Button>
 						<Button
 							onClick={() => {
