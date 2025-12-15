@@ -164,61 +164,90 @@ const Assessment = () => {
 	// 1. Choice Strategy
 	if (!started && !assessmentType) {
 		return (
-			<div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
-				<div className="max-w-4xl w-full bg-card border border-border rounded-2xl shadow-xl p-8 text-center animate-fade-in-up">
-					<div className="mb-6 flex justify-center">
-						<div className="h-20 w-20 bg-primary/10 rounded-full flex items-center justify-center">
-							<Brain className="h-10 w-10 text-primary" />
-						</div>
-					</div>
-					<h1 className="text-3xl font-bold text-foreground mb-4">
-						Kies uw Assessment
-					</h1>
-					<p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
-						Selecteer het type nulmeting dat u wilt uitvoeren. We bieden specifieke scans voor zowel organisatorische volwassenheid als individuele medewerker-readiness.
-					</p>
+			<div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center p-4 relative overflow-hidden">
+				{/* Decorative background elements */}
+				<div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+					<div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-3xl opacity-30 animate-pulse" />
+					<div className="absolute top-[20%] -right-[10%] w-[30%] h-[30%] bg-blue-500/20 rounded-full blur-3xl opacity-30 animate-pulse delay-700" />
+					<div className="absolute -bottom-[10%] left-[20%] w-[30%] h-[30%] bg-purple-500/20 rounded-full blur-3xl opacity-30 animate-pulse delay-1000" />
+				</div>
 
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+				<div className="max-w-5xl w-full relative z-10">
+					<div className="text-center mb-16 space-y-4">
+						<div className="inline-flex items-center justify-center p-3 bg-white dark:bg-slate-900 rounded-2xl shadow-sm mb-6 ring-1 ring-slate-900/5">
+							<Brain className="h-12 w-12 text-primary" />
+						</div>
+						<h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+							Kies uw Assessment
+						</h1>
+						<p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+							Selecteer het type nulmeting dat aansluit bij uw doel. <br className="hidden md:block" /> Wij bieden inzichten voor de hele organisatie én het individu.
+						</p>
+					</div>
+
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 px-4">
 						{/* Organization Option */}
 						<div
-							className="bg-card border-2 border-border hover:border-primary/50 hover:bg-accent/5 p-8 rounded-2xl cursor-pointer transition-all hover:-translate-y-1 shadow-sm hover:shadow-md flex flex-col items-center group"
+							className="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 md:p-10 rounded-3xl cursor-pointer hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden"
 							onClick={() => {
 								setAssessmentType('org');
 								setStarted(true);
 							}}
 						>
-							<div className="h-16 w-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mb-6 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform">
-								<Building2 className="h-8 w-8" />
+							<div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-cyan-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+
+							<div className="flex items-start justify-between mb-8">
+								<div className="h-16 w-16 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform duration-300">
+									<Building2 className="h-8 w-8" />
+								</div>
+								<div className="p-2 bg-slate-50 dark:bg-slate-800 rounded-full opacity-0 group-hover:opacity-100 transition-opacity -mr-2 -mt-2">
+									<ChevronRight className="h-5 w-5 text-slate-400" />
+								</div>
 							</div>
-							<h3 className="text-xl font-bold mb-3">Organisatie Scan</h3>
-							<p className="text-muted-foreground text-sm leading-relaxed">
+
+							<h3 className="text-2xl font-bold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Organisatie Scan</h3>
+							<p className="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
 								Meet de AI-volwassenheid van de volledige organisatie. Focus op strategie, budget, data en ethiek.
 							</p>
-							<Button className="mt-6 w-full" variant="outline">Start Organisatie Scan</Button>
+							<Button className="w-full bg-slate-900 text-white hover:bg-blue-600 transition-colors h-12 text-lg font-medium shadow-lg shadow-blue-900/5">
+								Start Organisatie Scan
+							</Button>
 						</div>
 
 						{/* Employee Option */}
 						<div
-							className="bg-card border-2 border-border hover:border-primary/50 hover:bg-accent/5 p-8 rounded-2xl cursor-pointer transition-all hover:-translate-y-1 shadow-sm hover:shadow-md flex flex-col items-center group"
+							className="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 md:p-10 rounded-3xl cursor-pointer hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden"
 							onClick={() => {
 								setAssessmentType('employee');
 								setStarted(true);
 							}}
 						>
-							<div className="h-16 w-16 bg-emerald-100 dark:bg-emerald-900/30 rounded-2xl flex items-center justify-center mb-6 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform">
-								<User className="h-8 w-8" />
+							<div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-teal-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+
+							<div className="flex items-start justify-between mb-8">
+								<div className="h-16 w-16 bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform duration-300">
+									<User className="h-8 w-8" />
+								</div>
+								<div className="p-2 bg-slate-50 dark:bg-slate-800 rounded-full opacity-0 group-hover:opacity-100 transition-opacity -mr-2 -mt-2">
+									<ChevronRight className="h-5 w-5 text-slate-400" />
+								</div>
 							</div>
-							<h3 className="text-xl font-bold mb-3">Medewerker Scan</h3>
-							<p className="text-muted-foreground text-sm leading-relaxed">
+
+							<h3 className="text-2xl font-bold mb-3 text-slate-900 dark:text-white group-hover:text-emerald-600 transition-colors">Medewerker Scan</h3>
+							<p className="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
 								Test de individuele AI-readiness en vaardigheden. Focus op kennis, mindset en dagelijks gebruik.
 							</p>
-							<Button className="mt-6 w-full" variant="outline">Start Medewerker Scan</Button>
+							<Button className="w-full bg-slate-900 text-white hover:bg-emerald-600 transition-colors h-12 text-lg font-medium shadow-lg shadow-emerald-900/5">
+								Start Medewerker Scan
+							</Button>
 						</div>
 					</div>
 
-					<Button onClick={() => navigate("/")} variant="ghost" size="lg">
-						<ArrowLeft className="mr-2 h-4 w-4" /> Terug naar Home
-					</Button>
+					<div className="flex justify-center">
+						<Button onClick={() => navigate("/")} variant="ghost" className="text-slate-500 hover:text-slate-900 hover:bg-transparent -mt-4">
+							<ArrowLeft className="mr-2 h-4 w-4" /> Terug naar Home
+						</Button>
+					</div>
 				</div>
 			</div>
 		);
@@ -266,43 +295,54 @@ const Assessment = () => {
 		const level = getMaturityLevel(score);
 
 		return (
-			<div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
-				<div className="max-w-2xl w-full bg-card border border-border rounded-2xl shadow-xl p-8 text-center animate-fade-in-up">
-					<div className="mb-6 flex justify-center">
-						<div className="h-20 w-20 bg-primary/10 rounded-full flex items-center justify-center">
-							<BarChart3 className="h-10 w-10 text-primary" />
+			<div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center p-4 relative overflow-hidden">
+				{/* Decorative background elements */}
+				<div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+					<div className="absolute top-[10%] left-[30%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-3xl opacity-30 animate-pulse" />
+				</div>
+
+				<div className="max-w-3xl w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2.5rem] shadow-2xl shadow-slate-200/50 dark:shadow-slate-950/50 p-12 md:p-16 text-center animate-fade-in-up relative z-10">
+					<div className="mb-8 flex justify-center">
+						<div className="h-24 w-24 bg-gradient-to-tr from-primary to-blue-600 rounded-3xl flex items-center justify-center shadow-lg shadow-blue-500/30 transform rotate-3">
+							<BarChart3 className="h-12 w-12 text-white" />
 						</div>
 					</div>
-					<h1 className="text-3xl font-bold text-foreground mb-2">
+
+					<h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">
 						Resultaat Nulmeting
 					</h1>
-					<p className="text-muted-foreground mb-8">
-						Hier is uw AI-volwassenheidsscore op basis van uw antwoorden.
+					<p className="text-xl text-slate-600 dark:text-slate-400 mb-12 leading-relaxed max-w-2xl mx-auto">
+						Uw organisatie scoort <strong className="text-slate-900 dark:text-white">{score}%</strong> op de AI-volwassenheidsschaal.
+						<br />Dit plaatst u in de categorie:
 					</p>
 
-					<div className="mb-8">
-						<div className="text-5xl font-bold text-primary mb-2">{score}%</div>
-						<div className="text-xl font-medium text-foreground">
-							Niveau: {level}
+					<div className="mb-12 relative inline-block">
+						<div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full"></div>
+						<div className="relative text-6xl md:text-7xl font-black bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent pb-4">
+							{level}
 						</div>
 					</div>
 
-					<div className="bg-muted/50 rounded-lg p-6 mb-8 text-left">
-						<h3 className="font-semibold mb-2">Advies voor {level}:</h3>
-						<p className="text-sm text-muted-foreground">
+					<div className="bg-slate-50 dark:bg-slate-950/50 rounded-2xl p-8 md:p-10 mb-12 text-left border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+						<div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-500 to-cyan-500"></div>
+						<h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
+							<Brain className="h-5 w-5 text-blue-500" />
+							Strategisch Advies:
+						</h3>
+						<p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
 							{level === "Beginner" &&
-								"Focus op het creëren van bewustzijn en het identificeren van de eerste eenvoudige use cases. Start met educatie."}
+								"Focus op het creëren van bewustzijn en het identificeren van de eerste eenvoudige use cases. Start met educatie en inspiratiesessies."}
 							{level === "Explorer" &&
-								"Begin met gestructureerde experimenten (pilots) en werk aan een basis datastrategie. Zoek interne ambassadeurs."}
+								"Begin met gestructureerde experimenten (pilots) en werk aan een basis datastrategie. Zoek interne ambassadeurs die de kar kunnen trekken."}
 							{level === "Adopter" &&
-								"Schaal succesvolle pilots op naar productie. Formaliseer governance en investeer in geavanceerde training."}
+								"Schaal succesvolle pilots op naar productie. Formaliseer governance, richtlijnen en investeer in geavanceerde training voor specifieke rollen."}
 							{level === "Leader" &&
-								"Blijf innoveren en zoek naar disruptieve mogelijkheden. Deel kennis en fungeer als voorbeeld in de industrie."}
+								"Blijf innoveren en zoek naar disruptieve mogelijkheden. Deel kennis, optimaliseer processen volledig met AI en fungeer als voorbeeld in de industrie."}
 						</p>
 					</div>
 
-					<div className="flex gap-4 justify-center">
-						<Button onClick={() => navigate("/")} variant="outline">
+					<div className="flex flex-col sm:flex-row gap-4 justify-center">
+						<Button onClick={() => navigate("/")} variant="outline" size="lg" className="h-14 px-8 text-lg rounded-xl border-2 hover:bg-slate-50 dark:hover:bg-slate-800">
 							Terug naar Dashboard
 						</Button>
 						<Button
@@ -313,6 +353,8 @@ const Assessment = () => {
 								setStarted(false);
 								setAssessmentType(null); // Return to choice
 							}}
+							size="lg"
+							className="h-14 px-8 text-lg rounded-xl bg-slate-900 hover:bg-slate-800 text-white shadow-lg shadow-slate-900/10"
 						>
 							Volgend Assessment
 						</Button>
@@ -324,117 +366,148 @@ const Assessment = () => {
 
 	// 4. Org Scan Questions (Default when started && assessmentType == 'org' && !showResult)
 	return (
-		<div className="min-h-screen bg-background flex flex-col">
-			<div className="p-4 border-b border-border">
-				<div className="container mx-auto flex items-center justify-between">
-					<div className="flex items-center">
+		<div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors duration-500">
+			{/* Header */}
+			<div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50">
+				<div className="container mx-auto px-4 h-16 flex items-center justify-between">
+					<div className="flex items-center gap-4">
 						<Button
 							variant="ghost"
 							onClick={() => {
 								setStarted(false);
 								setAssessmentType(null);
 							}}
-							className="gap-2"
+							className="gap-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white"
 						>
 							<ArrowLeft className="h-4 w-4" />
-							Terug
+							<span className="hidden sm:inline">Terug</span>
 						</Button>
-						<span className="ml-4 font-semibold text-foreground">
-							AI Nulmeting
-						</span>
+						<div className="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-2 hidden sm:block"></div>
+						<div className="flex items-center gap-3">
+							<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+								<Building2 className="h-4 w-4" />
+							</span>
+							<span className="font-bold text-slate-900 dark:text-white">
+								Organisatie Scan
+							</span>
+						</div>
 					</div>
 					<Button
-						variant="outline"
+						variant="ghost"
 						size="sm"
 						onClick={() => navigate("/")}
-						className="gap-2"
+						className="gap-2 text-slate-600 hover:text-primary hover:bg-primary/5"
 					>
 						<Home className="h-4 w-4" />
-						Home
+						<span className="hidden sm:inline">Home</span>
 					</Button>
+				</div>
+
+				{/* Slim progress line at very top of content */}
+				<div className="h-1 w-full bg-slate-100 dark:bg-slate-800">
+					<div
+						className="h-full bg-primary transition-all duration-700 ease-in-out"
+						style={{
+							width: `${((currentQuestion + 1) / questions.length) * 100}%`,
+						}}
+					/>
 				</div>
 			</div>
 
-			<div className="flex-1 container mx-auto p-4 max-w-3xl flex flex-col justify-center">
-				<div className="mb-8">
-					<div className="flex justify-between text-sm text-muted-foreground mb-2">
-						<span>
-							Vraag {currentQuestion + 1} van {questions.length}
+			<div className="flex-1 container mx-auto p-4 max-w-4xl flex flex-col justify-center py-12 md:py-20">
+				<div className="mb-8 md:mb-12">
+					<div className="flex items-end justify-between mb-4">
+						<div className="space-y-1">
+							<span className="text-sm font-semibold tracking-wider text-primary uppercase">
+								Vraag {currentQuestion + 1}
+							</span>
+							<h2 className="text-sm text-slate-500 font-medium">
+								Van de {questions.length}
+							</h2>
+						</div>
+						<span className="text-4xl font-black text-slate-200 dark:text-slate-800 tabular-nums leading-none">
+							0{currentQuestion + 1}
 						</span>
-						<span>
-							{Math.round(((currentQuestion + 1) / questions.length) * 100)}%
-						</span>
-					</div>
-					<div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
-						<div
-							className="h-full bg-primary transition-all duration-300 ease-out"
-							style={{
-								width: `${((currentQuestion + 1) / questions.length) * 100}%`,
-							}}
-						/>
 					</div>
 				</div>
 
-				<div className="bg-card border border-border rounded-2xl shadow-lg p-6 md:p-10 animate-fade-in">
-					<div className="mb-6">
-						<span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">
-							Vraag {currentQuestion + 1}
-						</span>
-						<h2 className="text-2xl md:text-3xl font-bold text-foreground leading-tight">
+				<div className="bg-white dark:bg-slate-900 rounded-[2rem] shadow-xl shadow-slate-200/50 dark:shadow-slate-950/50 border border-slate-100 dark:border-slate-800 p-8 md:p-12 animate-fade-in relative overflow-hidden">
+					{/* Decorative subtle background inside card */}
+					<div className="absolute top-0 right-0 w-64 h-64 bg-slate-50 dark:bg-slate-800/50 rounded-bl-full -mr-16 -mt-16 -z-0 pointer-events-none transition-colors duration-500"></div>
+
+					<div className="mb-10 relative z-10">
+						<h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white leading-snug">
 							{questions[currentQuestion].question}
 						</h2>
 					</div>
 
-					<div className="space-y-3">
-						{questions[currentQuestion].options.map((option, index) => (
-							<div
-								key={index}
-								onClick={() => handleOptionSelect(index)}
-								className={`
-                  group p-4 md:p-5 rounded-xl border-2 cursor-pointer transition-all duration-200 flex items-center gap-4
-                  ${answers[currentQuestion] === index
-										? "border-primary bg-primary/5 shadow-sm"
-										: "border-border hover:border-primary/50 hover:bg-accent hover:shadow-sm"
-									}
-                `}
-							>
-								<div
+					<div className="grid grid-cols-1 gap-4 relative z-10">
+						{questions[currentQuestion].options.map((option, index) => {
+							const isSelected = answers[currentQuestion] === index;
+
+							return (
+								<button
+									key={index}
+									onClick={() => handleOptionSelect(index)}
 									className={`
-                  flex-shrink-0 h-8 w-8 rounded-full border-2 flex items-center justify-center text-sm font-semibold transition-colors
-                  ${answers[currentQuestion] === index
-											? "border-primary bg-primary text-primary-foreground"
-											: "border-muted-foreground/30 text-muted-foreground group-hover:border-primary/50 group-hover:text-primary"
+                                    group w-full text-left p-6 rounded-2xl border-2 transition-all duration-300 relative overflow-hidden
+                                    ${isSelected
+											? "border-primary bg-primary/5 shadow-md shadow-primary/10"
+											: "border-slate-100 dark:border-slate-800 hover:border-blue-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800"
 										}
-                `}
+                                `}
 								>
-									{String.fromCharCode(65 + index)}
-								</div>
-								<span
-									className={`font-medium flex-1 ${answers[currentQuestion] === index
-										? "text-primary"
-										: "text-foreground"
-										}`}
-								>
-									{option}
-								</span>
-								{answers[currentQuestion] === index && (
-									<CheckCircle2 className="h-6 w-6 text-primary animate-in zoom-in duration-200" />
-								)}
-							</div>
-						))}
+									<div className="flex items-center gap-6">
+										<div
+											className={`
+                                        flex-shrink-0 h-10 w-10 rounded-xl border flex items-center justify-center text-sm font-bold transition-all duration-300
+                                        ${isSelected
+													? "border-primary bg-primary text-white scale-110 shadow-lg shadow-primary/20"
+													: "border-slate-200 dark:border-slate-700 text-slate-400 bg-white dark:bg-slate-950 group-hover:border-blue-300 group-hover:text-blue-500"
+												}
+                                        `}
+										>
+											{String.fromCharCode(65 + index)}
+										</div>
+
+										<span
+											className={`font-medium text-lg flex-1 transition-colors duration-300 ${isSelected
+												? "text-primary font-semibold"
+												: "text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white"
+												}`}
+										>
+											{option}
+										</span>
+
+										<div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${isSelected ? 'border-primary' : 'border-slate-200 dark:border-slate-700 group-hover:border-blue-300'}`}>
+											<div className={`w-3 h-3 rounded-full bg-primary transition-transform duration-300 ${isSelected ? 'scale-100' : 'scale-0'}`} />
+										</div>
+									</div>
+								</button>
+							)
+						})}
 					</div>
 
-					<div className="mt-8 flex justify-end">
+					<div className="mt-12 flex justify-end items-center gap-4 relative z-10">
+						{currentQuestion > 0 && (
+							<Button
+								variant="ghost"
+								onClick={() => setCurrentQuestion(prev => prev - 1)}
+								className="text-slate-500 hover:text-slate-900"
+							>
+								Vorige
+							</Button>
+						)}
 						<Button
 							onClick={handleNext}
 							disabled={answers[currentQuestion] === -1}
-							className="gap-2"
+							className="gap-2 px-8 h-12 text-lg rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all hover:scale-105 active:scale-95"
 							size="lg"
 						>
 							{currentQuestion === questions.length - 1
 								? "Afronden"
-								: "Volgende"}
-							<ChevronRight className="h-4 w-4" />
+								: "Volgende Vraag"}
+							<ChevronRight className="h-5 w-5" />
 						</Button>
 					</div>
 				</div>
