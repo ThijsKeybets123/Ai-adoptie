@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, CheckCircle2, ChevronRight, BarChart3, Home, Brain, ArrowRight } from "lucide-react";
+import { ArrowLeft, CheckCircle2, ChevronRight, BarChart3, Home, Brain, ArrowRight, Building2, User } from "lucide-react";
+import { ReadinessScan } from "@/components/ReadinessScan";
 
 const questions = [
 	{
@@ -110,6 +111,7 @@ const Assessment = () => {
 	console.log("Assessment component rendered");
 	const navigate = useNavigate();
 	const [started, setStarted] = useState(false);
+	const [assessmentType, setAssessmentType] = useState<'org' | 'employee' | null>(null);
 	const [currentQuestion, setCurrentQuestion] = useState(0);
 	const [answers, setAnswers] = useState<number[]>(new Array(questions.length).fill(-1));
 	const [showResult, setShowResult] = useState(false);
@@ -142,30 +144,11 @@ const Assessment = () => {
 	};
 
 	useEffect(() => {
-		if (showResult) {
-			const totalScore = answers.reduce((acc, curr) => acc + curr, 0);
-			const maxScore = questions.length * 3;
-			const score = Math.round((totalScore / maxScore) * 100);
-
-			let level = "Beginner";
-			if (score >= 25) level = "Explorer";
-			if (score >= 50) level = "Adopter";
-			if (score >= 75) level = "Leader";
+		if (showResult && assessmentType === 'org') {
+			const score = calculateScore();
+			const level = getMaturityLevel(score);
 
 			let rogersCategory = "Laggards";
-			if (level === "Beginner") rogersCategory = "Laggards";
-			if (level === "Explorer") rogersCategory = "Late Majority"; // Adjusted mapping
-			if (level === "Adopter") rogersCategory = "Early Majority";
-			if (level === "Leader") rogersCategory = "Innovators"; // Or Early Adopters depending on strictness
-
-			// Let's refine the mapping to match the 5 categories better
-			// 0-16% -> Laggards
-			// 16-50% -> Late Majority
-			// 50-84% -> Early Majority
-			// 84-97.5% -> Early Adopters
-			// 97.5-100% -> Innovators
-
-			// Simplified for this context:
 			if (score < 30) rogersCategory = "Laggards";
 			else if (score < 50) rogersCategory = "Late Majority";
 			else if (score < 70) rogersCategory = "Early Majority";
@@ -176,76 +159,101 @@ const Assessment = () => {
 			localStorage.setItem("assessmentLevel", level);
 			localStorage.setItem("rogersCategory", rogersCategory);
 		}
-	}, [showResult, answers]);
+	}, [showResult, answers, assessmentType]);
 
-	if (!started) {
+	// 1. Choice Strategy
+	if (!started && !assessmentType) {
 		return (
 			<div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
-				<div className="max-w-2xl w-full bg-card border border-border rounded-2xl shadow-xl p-8 text-center animate-fade-in-up">
+				<div className="max-w-4xl w-full bg-card border border-border rounded-2xl shadow-xl p-8 text-center animate-fade-in-up">
 					<div className="mb-6 flex justify-center">
 						<div className="h-20 w-20 bg-primary/10 rounded-full flex items-center justify-center">
 							<Brain className="h-10 w-10 text-primary" />
 						</div>
 					</div>
 					<h1 className="text-3xl font-bold text-foreground mb-4">
-						Welkom bij de AI Nulmeting - Start Nu
+						Kies uw Assessment
 					</h1>
-					<p className="text-lg text-muted-foreground mb-8">
-						Ontdek waar uw organisatie staat op het gebied van AI-adoptie. Deze korte
-						assessment van 6 vragen geeft u direct inzicht in uw huidige
-						volwassenheidsniveau en biedt concrete aanbevelingen voor de volgende
-						stappen.
+					<p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
+						Selecteer het type nulmeting dat u wilt uitvoeren. We bieden specifieke scans voor zowel organisatorische volwassenheid als individuele medewerker-readiness.
 					</p>
 
-					<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 text-left">
-						<div className="bg-muted/30 p-4 rounded-lg">
-							<div className="font-semibold mb-1 flex items-center gap-2">
-								<span className="bg-primary/10 p-1 rounded text-primary">⏱️</span> 2
-								minuten
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+						{/* Organization Option */}
+						<div
+							className="bg-card border-2 border-border hover:border-primary/50 hover:bg-accent/5 p-8 rounded-2xl cursor-pointer transition-all hover:-translate-y-1 shadow-sm hover:shadow-md flex flex-col items-center group"
+							onClick={() => {
+								setAssessmentType('org');
+								setStarted(true);
+							}}
+						>
+							<div className="h-16 w-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mb-6 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform">
+								<Building2 className="h-8 w-8" />
 							</div>
-							<p className="text-sm text-muted-foreground">
-								Korte, krachtige vragenlijst
+							<h3 className="text-xl font-bold mb-3">Organisatie Scan</h3>
+							<p className="text-muted-foreground text-sm leading-relaxed">
+								Meet de AI-volwassenheid van de volledige organisatie. Focus op strategie, budget, data en ethiek.
 							</p>
+							<Button className="mt-6 w-full" variant="outline">Start Organisatie Scan</Button>
 						</div>
-						<div className="bg-muted/30 p-4 rounded-lg">
-							<div className="font-semibold mb-1 flex items-center gap-2">
-								<span className="bg-primary/10 p-1 rounded text-primary">📊</span>{" "}
-								Direct inzicht
+
+						{/* Employee Option */}
+						<div
+							className="bg-card border-2 border-border hover:border-primary/50 hover:bg-accent/5 p-8 rounded-2xl cursor-pointer transition-all hover:-translate-y-1 shadow-sm hover:shadow-md flex flex-col items-center group"
+							onClick={() => {
+								setAssessmentType('employee');
+								setStarted(true);
+							}}
+						>
+							<div className="h-16 w-16 bg-emerald-100 dark:bg-emerald-900/30 rounded-2xl flex items-center justify-center mb-6 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform">
+								<User className="h-8 w-8" />
 							</div>
-							<p className="text-sm text-muted-foreground">
-								Ontvang meteen uw score
+							<h3 className="text-xl font-bold mb-3">Medewerker Scan</h3>
+							<p className="text-muted-foreground text-sm leading-relaxed">
+								Test de individuele AI-readiness en vaardigheden. Focus op kennis, mindset en dagelijks gebruik.
 							</p>
-						</div>
-						<div className="bg-muted/30 p-4 rounded-lg">
-							<div className="font-semibold mb-1 flex items-center gap-2">
-								<span className="bg-primary/10 p-1 rounded text-primary">🚀</span>{" "}
-								Advies op maat
-							</div>
-							<p className="text-sm text-muted-foreground">
-								Concrete vervolgstappen
-							</p>
+							<Button className="mt-6 w-full" variant="outline">Start Medewerker Scan</Button>
 						</div>
 					</div>
 
-					<div className="flex gap-4 justify-center">
-						<Button onClick={() => navigate("/")} variant="outline" size="lg">
-							Terug naar Home
-						</Button>
-						<Button
-							onClick={() => setStarted(true)}
-							size="lg"
-							className="gap-2"
-						>
-							Start Nulmeting
-							<ArrowRight className="h-4 w-4" />
-						</Button>
-					</div>
+					<Button onClick={() => navigate("/")} variant="ghost" size="lg">
+						<ArrowLeft className="mr-2 h-4 w-4" /> Terug naar Home
+					</Button>
 				</div>
 			</div>
 		);
 	}
 
-	if (showResult) {
+	// 2. Employee Scan
+	if (assessmentType === 'employee') {
+		return (
+			<div className="min-h-screen bg-background flex flex-col">
+				<div className="p-4 border-b border-border">
+					<div className="container mx-auto flex items-center justify-between">
+						<Button
+							variant="ghost"
+							onClick={() => {
+								setAssessmentType(null);
+								setStarted(false);
+							}}
+							className="gap-2"
+						>
+							<ArrowLeft className="h-4 w-4" />
+							Kies ander assessment
+						</Button>
+						<span className="font-semibold text-foreground">Medewerker Scan</span>
+					</div>
+				</div>
+				<div className="-mt-20">
+					{/* Negative margin to pull the section up slightly as ReadinessScan has lots of top padding */}
+					<ReadinessScan />
+				</div>
+			</div>
+		);
+	}
+
+	// 3. Org Scan Result
+	if (showResult && assessmentType === 'org') {
 		const score = calculateScore();
 		const level = getMaturityLevel(score);
 
@@ -294,9 +302,11 @@ const Assessment = () => {
 								setShowResult(false);
 								setCurrentQuestion(0);
 								setAnswers(new Array(questions.length).fill(-1));
+								setStarted(false);
+								setAssessmentType(null); // Return to choice
 							}}
 						>
-							Opnieuw doen
+							Volgend Assessment
 						</Button>
 					</div>
 				</div>
@@ -304,6 +314,7 @@ const Assessment = () => {
 		);
 	}
 
+	// 4. Org Scan Questions (Default when started && assessmentType == 'org' && !showResult)
 	return (
 		<div className="min-h-screen bg-background flex flex-col">
 			<div className="p-4 border-b border-border">
@@ -311,7 +322,10 @@ const Assessment = () => {
 					<div className="flex items-center">
 						<Button
 							variant="ghost"
-							onClick={() => navigate("/")}
+							onClick={() => {
+								setStarted(false);
+								setAssessmentType(null);
+							}}
 							className="gap-2"
 						>
 							<ArrowLeft className="h-4 w-4" />
@@ -388,11 +402,10 @@ const Assessment = () => {
 									{String.fromCharCode(65 + index)}
 								</div>
 								<span
-									className={`font-medium flex-1 ${
-										answers[currentQuestion] === index
-											? "text-primary"
-											: "text-foreground"
-									}`}
+									className={`font-medium flex-1 ${answers[currentQuestion] === index
+										? "text-primary"
+										: "text-foreground"
+										}`}
 								>
 									{option}
 								</span>
