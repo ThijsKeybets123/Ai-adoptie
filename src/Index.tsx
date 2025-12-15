@@ -31,6 +31,10 @@ import {
   Globe,
   ChevronDown,
   Home,
+  BookOpen,
+  Briefcase,
+  Smile,
+  CheckCircle2,
 } from "lucide-react";
 import {
   Carousel,
@@ -263,6 +267,39 @@ const benefits = [
   }
 ];
 
+const testModules = [
+  {
+    title: "Basiskennis AI",
+    description: "Een fundamentele toetsing van AI-geletterdheid. Begrijpen medewerkers de kernconcepten?",
+    icon: BookOpen,
+    bullets: [
+      "Wat is AI precies?",
+      "Machine Learning vs. traditionele software",
+      "Bias, ethiek en veiligheid"
+    ]
+  },
+  {
+    title: "Toepassing in werk",
+    description: "Hoe vertalen medewerkers AI-kennis naar de dagelijkse praktijk? Van theorie naar doen.",
+    icon: Briefcase,
+    bullets: [
+      "Herkennen van AI-kansen in processen",
+      "Effectief werken met AI-tools (bv. ChatGPT)",
+      "Praktische use-cases op de werkvloer"
+    ]
+  },
+  {
+    title: "Mindset & Adoptie",
+    description: "De zachte kant van innovatie. Is er bereidheid om te veranderen en te leren?",
+    icon: Smile,
+    bullets: [
+      "Openheid voor experimenteren",
+      "Samenwerken met data & IT teams",
+      "Omgaan met constante verandering"
+    ]
+  }
+];
+
 const Index = () => {
   const [selectedBarrier, setSelectedBarrier] = useState<typeof barriers[0] | null>(null);
   const [selectedStrategy, setSelectedStrategy] = useState<typeof strategies[0] | null>(null);
@@ -423,6 +460,45 @@ const Index = () => {
                 <div className="mt-4 flex items-center text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
                   Lees meer <ArrowRight className="ml-1 h-4 w-4" />
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Test Modules Section */}
+      <section className="py-20 bg-muted/40 border-y border-border/50">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Wat testen we bij jouw medewerkers?
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Onze assessment methodiek rust op drie fundamentele pijlers van digitale transformatie.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {testModules.map((module, index) => (
+              <div
+                key={module.title}
+                className="bg-card p-8 rounded-2xl shadow-sm border border-border/50 hover:shadow-lg transition-all hover:-translate-y-1 group"
+              >
+                <div className="h-14 w-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform duration-300">
+                  <module.icon className="h-7 w-7" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-foreground">{module.title}</h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  {module.description}
+                </p>
+                <ul className="space-y-3">
+                  {module.bullets.map((bullet, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-sm text-foreground/80">
+                      <div className="mt-1 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
