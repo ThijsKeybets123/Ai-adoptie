@@ -38,6 +38,8 @@ import {
   CheckCircle2,
   Scale,
   Code2,
+  HelpCircle,
+  Shield,
 } from "lucide-react";
 import {
   Carousel,
@@ -333,219 +335,196 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border/50 bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-all duration-300">
+        <div className="container mx-auto px-6 h-20 flex items-center justify-between">
           <div
-            className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+            className="flex items-center gap-3 cursor-pointer group"
             onClick={() => {
               navigate("/");
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            <Sparkles className="h-6 w-6 text-primary" />
-            <h1 className="text-xl font-bold text-foreground">
-              AI Adoptie Dashboard
-            </h1>
+            <div className="bg-primary/10 p-2 rounded-xl group-hover:bg-primary/20 transition-colors">
+              <Sparkles className="h-6 w-6 text-primary" />
+            </div>
+            <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">AI-Nulmeting</span>
           </div>
-          <div className="flex gap-2">
-            <Button
-              onClick={() => navigate("/")}
-              size="sm"
-              variant="ghost"
-              className="gap-2"
-            >
-              <Home className="h-4 w-4" />
-              Home
-            </Button>
-            {user ? (
-              <>
-                <Button
-                  onClick={() => navigate("/assessment")}
-                  size="sm"
-                  variant="outline"
-                  className="gap-2"
-                >
-                  <Brain className="h-4 w-4" />
-                  Nulmeting
-                </Button>
-                <Button
-                  onClick={() => navigate("/dashboard")}
-                  size="sm"
-                  className="gap-2"
-                >
-                  <User className="h-4 w-4" />
-                  Dashboard
-                </Button>
-              </>
-            ) : (
-              <Button
-                onClick={() => navigate("/auth")}
-                variant="outline"
-                size="sm"
-                className="gap-2"
-              >
-                <LogIn className="h-4 w-4" />
-                Inloggen
-              </Button>
-            )}
-          </div>
+
+          <nav className="hidden md:flex items-center gap-8">
+            <button onClick={() => navigate("/")} className="text-sm font-medium text-slate-600 hover:text-primary transition-colors">Home</button>
+            <button onClick={() => navigate("/assessment")} className="text-sm font-medium text-slate-600 hover:text-primary transition-colors">Nulmeting</button>
+            <button onClick={() => navigate("/dashboard")} className="text-sm font-medium text-slate-600 hover:text-primary transition-colors">Resultaten</button>
+            <button onClick={() => scrollToSection(barriersRef)} className="text-sm font-medium text-slate-600 hover:text-primary transition-colors">Over</button>
+          </nav>
+
+          <Button
+            onClick={() => navigate("/assessment")}
+            className="rounded-full px-6 font-semibold shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all hover:-translate-y-0.5"
+          >
+            Start AI-nulmeting
+          </Button>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-hero min-h-screen flex items-center justify-center">
-        <div className="pointer-events-none absolute inset-0 opacity-40">
-          <div className="h-full w-full bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.15),_transparent_55%)]" />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in-up">
-            <div className="inline-block">
-              <span className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm text-white text-sm font-medium border border-white/20 shadow-lg">
-                <Brain className="h-4 w-4" />
-                AI-Nulmeting voor Organisaties
-              </span>
-            </div>
-            <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight tracking-tight drop-shadow-sm">
-              Breng de AI-vaardigheid van uw medewerkers in kaart
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 leading-relaxed max-w-2xl mx-auto font-light">
-              Hét professionele assessment platform voor bedrijven. Meet AI-kennis, identificeer kennishiaten en versnel de adoptie van AI binnen uw teams.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-              <Button
-                size="lg"
-                variant="secondary"
-                className="font-semibold text-lg px-8 py-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
-                onClick={() => navigate("/assessment")}
-              >
-                Start de Nulmeting
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="font-semibold text-lg px-8 py-6 bg-white/10 text-white border-white/20 hover:bg-white/20 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-                onClick={() => scrollToSection(barriersRef)}
-              >
-                Meer informatie
-              </Button>
-            </div>
-          </div>
+      {/* Modern Hero Section */}
+      <section className="relative min-h-[90vh] flex items-center justify-center pt-20 overflow-hidden bg-slate-50 dark:bg-slate-950">
+        {/* Abstract Background Shapes */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute -top-[20%] -right-[10%] w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl opacity-50 animate-blob"></div>
+          <div className="absolute top-[40%] -left-[10%] w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-3xl opacity-50 animate-blob animation-delay-2000"></div>
+          <div className="absolute bottom-[10%] left-[30%] w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-3xl opacity-50 animate-blob animation-delay-4000"></div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce text-white/80 cursor-pointer"
-          onClick={() => scrollToSection(barriersRef)}
-        >
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-sm font-medium uppercase tracking-widest opacity-80">
-              Scroll
+        <div className="container mx-auto px-4 relative z-10 flex flex-col items-center text-center max-w-5xl">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm mb-8 animate-fade-in-up">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <ChevronDown className="h-6 w-6" />
+            <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Nieuw: Modulaire Organisatie Scan</span>
           </div>
+
+          <h1 className="text-6xl md:text-8xl font-black text-slate-900 dark:text-white tracking-tight mb-8 leading-[1.1] animate-fade-in-up animation-delay-100">
+            Meet uw <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">Digitale IQ</span>
+          </h1>
+
+          <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-12 font-light leading-relaxed animate-fade-in-up animation-delay-200">
+            Krijg direct inzicht in de AI-volwassenheid van uw teams. Wetenschappelijk onderbouwd, praktisch toepasbaar en volledig modulair.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animation-delay-300">
+            <Button
+              onClick={() => navigate("/assessment")}
+              size="lg"
+              className="h-14 px-10 rounded-full text-lg font-bold shadow-xl shadow-primary/20 hover:shadow-2xl hover:scale-105 transition-all duration-300"
+            >
+              Begin nu met de scan
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => scrollToSection(barriersRef)}
+              size="lg"
+              className="h-14 px-10 rounded-full text-lg font-medium border-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            >
+              Meer leren
+            </Button>
+          </div>
+
+          <p className="mt-8 text-sm text-slate-400 font-medium animate-fade-in-up animation-delay-500">
+            Al meer dan 500+ professionals gingen u voor.
+          </p>
         </div>
       </section>
 
-      {/* Waarom-sectie */}
-      <section className="py-20 bg-background relative overflow-hidden">
+      {/* Waarom-sectie (Benefits) - Met Modern Design */}
+      <section className="py-24 bg-white dark:bg-slate-900">
         <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Waarom een AI-nulmeting voor jouw organisatie?
+          <div className="max-w-3xl mx-auto text-center mb-20">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+              Waarom inzicht essentieel is
             </h2>
-            <p className="text-lg text-muted-foreground">
-              Krijg grip op de digitale transformatie door inzicht in het menselijk kapitaal.
+            <p className="text-lg text-slate-600 dark:text-slate-400">
+              Transformeer gut-feeling naar data-driven beslissingen.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {benefits.map((benefit, index) => (
               <div
                 key={benefit.id}
-                className="bg-card p-8 rounded-2xl shadow-sm border border-border/50 hover:shadow-md transition-all cursor-pointer group"
+                className="group p-8 rounded-[2rem] bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-black/50 transition-all duration-300 cursor-pointer"
                 onClick={() => setSelectedBenefit(benefit)}
               >
-                <div className={`h-12 w-12 ${benefit.colorClass} rounded-xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110`}>
-                  <benefit.icon className="h-6 w-6" />
+                <div className={`h-14 w-14 ${benefit.colorClass} rounded-2xl flex items-center justify-center mb-6 text-current transition-transform duration-500 group-hover:rotate-6`}>
+                  <benefit.icon className="h-7 w-7" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">{benefit.title}</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{benefit.title}</h3>
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
                   {benefit.description}
                 </p>
-                <div className="mt-4 flex items-center text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                  Lees meer <ArrowRight className="ml-1 h-4 w-4" />
-                </div>
+                <span className="inline-flex items-center text-sm font-bold text-primary opacity-60 group-hover:opacity-100 transition-opacity">
+                  Lees meer <ChevronDown className="ml-1 h-4 w-4 -rotate-90" />
+                </span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Test Modules Section */}
-      <section className="py-20 bg-muted/40 border-y border-border/50">
+      {/* 4 Domains Section (Modern Cards) */}
+      <section className="py-32 bg-slate-50 dark:bg-slate-950 border-y border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Wat testen we bij jouw medewerkers?
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <span className="text-primary font-bold tracking-wider uppercase text-sm mb-4 block">Onze Aanpak</span>
+            <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6">
+              4 Domeinen van AI-Volwassenheid
             </h2>
-            <p className="text-lg text-muted-foreground">
-              Onze assessment methodiek rust op drie fundamentele pijlers van digitale transformatie.
+            <p className="text-xl text-slate-600 dark:text-slate-400">
+              Een holistische benadering om elke laag van adoptie te meten.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {testModules.map((module) => {
-              const isExpanded = expandedModule === module.id;
-
-              return (
-                <div
-                  key={module.id}
-                  className={`bg-card p-8 rounded-2xl shadow-sm border transition-all duration-300 cursor-pointer group ${isExpanded ? 'ring-2 ring-primary/5 shadow-lg' : 'border-border/50 hover:shadow-lg hover:-translate-y-1'} ${module.borderColor}`}
-                  onClick={() => setExpandedModule(isExpanded ? null : module.id)}
-                >
-                  <div className="flex justify-between items-start mb-6">
-                    <div className={`h-14 w-14 ${module.bgColor} ${module.color} rounded-2xl flex items-center justify-center transition-transform duration-300 ${!isExpanded && 'group-hover:scale-110'}`}>
-                      <module.icon className="h-7 w-7" />
-                    </div>
-                    <div className={`p-2 rounded-full hover:bg-muted transition-colors ${isExpanded ? 'bg-muted' : ''}`}>
-                      <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
-                    </div>
-                  </div>
-
-                  <h3 className="text-2xl font-bold mb-3 text-foreground">{module.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {module.description}
-                  </p>
-
-                  <div className={`grid transition-all duration-300 ease-in-out ${isExpanded ? 'grid-rows-[1fr] opacity-100 mt-6 pt-6 border-t border-border/50' : 'grid-rows-[0fr] opacity-0'}`}>
-                    <div className="overflow-hidden">
-                      <ul className="space-y-3">
-                        {module.bullets.map((bullet, idx) => (
-                          <li key={idx} className="flex items-start gap-3 text-sm text-foreground/80">
-                            <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${module.color}`} />
-                            <span>{bullet}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  {!isExpanded && (
-                    <div className="mt-4 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-                      Bekijk details
-                    </div>
-                  )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+            {/* Note: Hardcoded to match ReadinessScan domains precisely */}
+            {[
+              {
+                id: 0,
+                title: "Basisbegrip",
+                desc: "Fundamentele kennis van wat AI is en de mogelijkheden.",
+                icon: HelpCircle,
+                color: "text-blue-600",
+                bg: "bg-blue-50 dark:bg-blue-900/10"
+              },
+              {
+                id: 1,
+                title: "Dagelijks Werk",
+                desc: "Praktische toepassing in bestaande taken en processen.",
+                icon: Zap,
+                color: "text-amber-600",
+                bg: "bg-amber-50 dark:bg-amber-900/10"
+              },
+              {
+                id: 2,
+                title: "Vaardigheden",
+                desc: "Het vermogen om AI-tools effectief te besturen (prompting).",
+                icon: Brain,
+                color: "text-purple-600",
+                bg: "bg-purple-50 dark:bg-purple-900/10"
+              },
+              {
+                id: 3,
+                title: "Bewustzijn",
+                desc: "Begrip van ethiek, risico's en veiligheid.",
+                icon: Shield,
+                color: "text-emerald-600",
+                bg: "bg-emerald-50 dark:bg-emerald-900/10"
+              },
+            ].map((item, idx) => (
+              <div key={item.id} className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col">
+                <div className={`h-16 w-16 mb-6 rounded-2xl flex items-center justify-center ${item.bg} ${item.color}`}>
+                  <item.icon className="h-8 w-8" />
                 </div>
-              )
-            })}
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title}</h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8 flex-1">
+                  {item.desc}
+                </p>
+                <Button
+                  onClick={() => navigate("/assessment")}
+                  variant="outline"
+                  className="w-full rounded-xl border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800"
+                >
+                  Start domein
+                </Button>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-muted/30">
+      <section className="py-24 bg-white dark:bg-slate-900">
         <div className="container mx-auto px-4">
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-3">
             {impactStats.map((stat, index) => (
               <div
                 key={stat.label}

@@ -243,16 +243,23 @@ export const ReadinessScan = () => {
         <section className="py-12 bg-slate-50 dark:bg-slate-950 min-h-[600px] transition-all duration-500">
             <div className="container mx-auto px-4 max-w-3xl">
 
-                {/* Progress Indicators */}
-                <div className="mb-8 flex justify-center gap-2">
-                    {domains.map((d, idx) => (
+                {/* Modern Progress Bar */}
+                <div className="mb-12">
+                    <div className="flex justify-between items-end mb-4">
+                        <div>
+                            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Voortgang</span>
+                            <h2 className="text-lg font-bold text-slate-900 dark:text-white">Domein {currentDomainIndex + 1} van {domains.length}</h2>
+                        </div>
+                        <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
+                            {Math.round(((currentDomainIndex) / domains.length) * 100)}%
+                        </span>
+                    </div>
+                    <div className="h-3 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                         <div
-                            key={idx}
-                            className={`h-2 w-12 rounded-full transition-colors duration-300 
-                                ${idx === currentDomainIndex ? 'bg-primary' :
-                                    idx < currentDomainIndex ? 'bg-primary/40' : 'bg-slate-200 dark:bg-slate-800'}`}
+                            className="h-full bg-primary transition-all duration-1000 ease-out rounded-full"
+                            style={{ width: `${((currentDomainIndex) / domains.length) * 100 + (isInterimResult ? 25 : 0)}%` }}
                         />
-                    ))}
+                    </div>
                 </div>
 
                 {isInterimResult ? (
@@ -294,33 +301,36 @@ export const ReadinessScan = () => {
                         </div>
 
                         {/* Questions List */}
-                        <div className="space-y-10">
+                        <div className="space-y-8">
                             {currentDomain.questions.map((q, qIdx) => {
                                 const val = answers[`${currentDomainIndex}-${qIdx}`];
                                 return (
-                                    <div key={qIdx} className="space-y-4">
-                                        <p className="font-medium text-lg leading-relaxed text-slate-800 dark:text-slate-200">
+                                    <div key={qIdx} className="bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 p-6 rounded-2xl transition-all hover:shadow-md">
+                                        <p className="font-semibold text-lg leading-relaxed text-slate-800 dark:text-slate-200 mb-6">
                                             {q}
                                         </p>
-                                        <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-950 p-2 rounded-xl">
-                                            {[1, 2, 3, 4, 5].map((num) => (
-                                                <button
-                                                    key={num}
-                                                    onClick={() => handleOptionSelect(qIdx, num)}
-                                                    className={`
-                                                        h-10 w-10 md:h-12 md:w-12 rounded-lg font-bold transition-all duration-200
-                                                        ${val === num
-                                                            ? 'bg-primary text-white shadow-lg scale-110'
-                                                            : 'bg-white dark:bg-slate-800 text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'}
-                                                    `}
-                                                >
-                                                    {num}
-                                                </button>
-                                            ))}
-                                        </div>
-                                        <div className="flex justify-between text-xs text-slate-400 px-2">
-                                            <span>Helemaal oneens</span>
-                                            <span>Helemaal eens</span>
+
+                                        <div className="flex flex-col gap-2">
+                                            <div className="flex justify-between items-center gap-2">
+                                                {[1, 2, 3, 4, 5].map((num) => (
+                                                    <button
+                                                        key={num}
+                                                        onClick={() => handleOptionSelect(qIdx, num)}
+                                                        className={`
+                                                            flex-1 h-12 md:h-14 rounded-xl font-bold text-lg transition-all duration-200 border-2
+                                                            ${val === num
+                                                                ? 'bg-primary border-primary text-white shadow-lg shadow-primary/20 scale-105 transform'
+                                                                : 'bg-white dark:bg-slate-900 border-transparent text-slate-400 hover:border-slate-200 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-slate-800'}
+                                                        `}
+                                                    >
+                                                        {num}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                            <div className="flex justify-between text-xs font-medium text-slate-400 px-1 mt-2">
+                                                <span>Helemaal oneens</span>
+                                                <span>Helemaal eens</span>
+                                            </div>
                                         </div>
                                     </div>
                                 );
