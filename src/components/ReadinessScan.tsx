@@ -8,8 +8,10 @@ export const ReadinessScan = () => {
         {
             id: 0,
             title: "Basisbegrip van AI",
+            shortTitle: "Basis",
             icon: HelpCircle,
             color: "text-blue-600 bg-blue-100 dark:bg-blue-900/20",
+            barColor: "bg-blue-600",
             questions: [
                 "Ik begrijp globaal wat AI is.",
                 "Ik weet dat AI fouten of vooroordelen kan hebben.",
@@ -19,8 +21,10 @@ export const ReadinessScan = () => {
         {
             id: 1,
             title: "AI in mijn dagelijkse werk",
+            shortTitle: "Werk",
             icon: Zap,
             color: "text-amber-600 bg-amber-100 dark:bg-amber-900/20",
+            barColor: "bg-amber-600",
             questions: [
                 "Ik gebruik wel eens AI-tools, zoals ChatGPT of Copilot.",
                 "Ik herken taken waarbij AI mij tijd kan besparen.",
@@ -30,8 +34,10 @@ export const ReadinessScan = () => {
         {
             id: 2,
             title: "Vaardigheden in gebruik",
+            shortTitle: "Skills",
             icon: Brain,
             color: "text-purple-600 bg-purple-100 dark:bg-purple-900/20",
+            barColor: "bg-purple-600",
             questions: [
                 "Ik kan een duidelijke vraag of opdracht formuleren voor een AI-tool.",
                 "Ik kan AI gebruiken voor eenvoudige taken (schrijven, samenvatten).",
@@ -41,8 +47,10 @@ export const ReadinessScan = () => {
         {
             id: 3,
             title: "Bewustzijn & Risico’s",
+            shortTitle: "Risico's",
             icon: Shield,
             color: "text-emerald-600 bg-emerald-100 dark:bg-emerald-900/20",
+            barColor: "bg-emerald-600",
             questions: [
                 "Ik begrijp dat AI door mensen gecontroleerd moet worden.",
                 "Ik weet dat organisaties regels hebben voor verantwoord AI-gebruik.",
@@ -125,20 +133,24 @@ export const ReadinessScan = () => {
     const BarChart = ({ scores }: { scores: number[] }) => {
         const max = 5;
         return (
-            <div className="flex items-end justify-between h-48 w-full gap-4 pt-4">
+            <div className="flex items-end justify-between h-56 w-full gap-3 pt-6 px-2">
                 {scores.map((s, idx) => (
                     <div key={idx} className="flex flex-col items-center flex-1 h-full justify-end group">
-                        <div className="relative w-full max-w-[60px] bg-slate-100 dark:bg-slate-800 rounded-t-lg overflow-hidden h-full flex items-end">
+                        {/* Bar Container */}
+                        <div className="relative w-full max-w-[48px] bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden h-full flex items-end ring-1 ring-slate-200 dark:ring-slate-700">
+                            {/* Fill */}
                             <div
-                                className={`w-full transition-all duration-1000 ease-out rounded-t-lg ${domains[idx].color.split(' ')[0].replace('text', 'bg')}`}
+                                className={`w-full transition-all duration-1000 ease-out rounded-full ${domains[idx].barColor}`}
                                 style={{ height: `${(s / max) * 100}%` }}
                             />
-                            <div className="absolute bottom-2 w-full text-center text-xs font-bold text-white drop-shadow-md">
-                                {s}
-                            </div>
                         </div>
-                        <span className="text-xs text-center mt-2 font-medium text-slate-500 truncate w-full px-1">
-                            {domains[idx].title.split(' ')[0]}...
+                        {/* Score Badge */}
+                        <div className="mt-[-12px] z-10 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm rounded-md px-2 py-0.5 text-xs font-bold mb-2">
+                            {s}
+                        </div>
+                        {/* Label */}
+                        <span className="text-xs text-center font-bold text-slate-500 uppercase tracking-wide">
+                            {domains[idx].shortTitle}
                         </span>
                     </div>
                 ))}
