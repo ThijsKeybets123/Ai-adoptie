@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { LearningModule } from "@/components/LearningModule";
 import {
   LayoutDashboard,
   TrendingUp,
@@ -272,6 +273,9 @@ const Dashboard = () => {
             </div>
           </div>
 
+          <div className="md:col-span-2 lg:col-span-4 mt-6">
+            <LearningModule />
+          </div>
         </div>
       </main>
     </div>
