@@ -163,6 +163,9 @@ export const ReadinessScan = () => {
         const domainScores = domains.map((d) => parseFloat(calculateDomainScore(d.id)));
         const totalAverage = (domainScores.reduce((a, b) => a + b, 0) / domains.length).toFixed(1);
 
+        // Save result to local storage for dashboard
+        localStorage.setItem("employeeAssessmentScore", totalAverage);
+
         return (
             <section className="py-12 bg-slate-50 dark:bg-slate-950 min-h-[600px] animate-fade-in">
                 <div className="container mx-auto px-4 max-w-4xl">

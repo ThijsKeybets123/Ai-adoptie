@@ -2,16 +2,17 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { 
-  LayoutDashboard, 
-  TrendingUp, 
-  Award, 
-  Clock, 
-  ArrowRight, 
+import {
+  LayoutDashboard,
+  TrendingUp,
+  Award,
+  Clock,
+  ArrowRight,
   FileText,
   CheckCircle2,
   Home,
-  Users
+  Users,
+  Building2
 } from "lucide-react";
 
 const Dashboard = () => {
@@ -21,15 +22,18 @@ const Dashboard = () => {
   const [score, setScore] = useState(42);
   const [level, setLevel] = useState("Explorer");
   const [userCategory, setUserCategory] = useState("Late Majority");
+  const [employeeScore, setEmployeeScore] = useState<string | null>(null);
 
   useEffect(() => {
     const storedScore = localStorage.getItem("assessmentScore");
     const storedLevel = localStorage.getItem("assessmentLevel");
     const storedCategory = localStorage.getItem("rogersCategory");
-    
+    const storedEmployeeScore = localStorage.getItem("employeeAssessmentScore");
+
     if (storedScore) setScore(parseInt(storedScore));
     if (storedLevel) setLevel(storedLevel);
     if (storedCategory) setUserCategory(storedCategory);
+    if (storedEmployeeScore) setEmployeeScore(storedEmployeeScore);
   }, []);
 
   const rogersCategories = [
@@ -49,34 +53,15 @@ const Dashboard = () => {
     { id: 3, action: "Ingelogd", date: "Zojuist", icon: Clock },
   ];
 
-  const recommendedActions = [
-    { 
-      id: 1, 
-      title: "Start een pilot project", 
-      description: "Selecteer een laagdrempelige use case om mee te beginnen.",
-      status: "todo"
-    },
-    { 
-      id: 2, 
-      title: "Deel kennis met team", 
-      description: "Organiseer een kennissessie over de resultaten van de nulmeting.",
-      status: "todo"
-    },
-    { 
-      id: 3, 
-      title: "Update AI beleid", 
-      description: "Zorg dat richtlijnen voor gebruik van AI tools helder zijn.",
-      status: "in-progress"
-    }
-  ];
+
 
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card px-6 py-4">
         <div className="container mx-auto flex items-center justify-between">
-          <div 
-            className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity" 
+          <div
+            className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
             onClick={() => navigate("/")}
           >
             <LayoutDashboard className="h-6 w-6 text-primary" />
@@ -102,7 +87,7 @@ const Dashboard = () => {
 
       <main className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          
+
           {/* Welcome Section */}
           <div className="md:col-span-2 lg:col-span-4 bg-gradient-to-r from-primary to-blue-600 rounded-2xl p-8 text-white shadow-lg animate-fade-in-up">
             <h2 className="text-3xl font-bold mb-2">Welkom terug, {user?.name?.split(' ')[0] || 'Gebruiker'}!</h2>
@@ -153,28 +138,27 @@ const Dashboard = () => {
               {hoveredCategory ? hoveredCategory : userCategory}
             </div>
             <p className="text-sm text-muted-foreground h-5">
-              {hoveredCategory 
-                ? rogersCategories.find(c => c.name === hoveredCategory)?.description 
+              {hoveredCategory
+                ? rogersCategories.find(c => c.name === hoveredCategory)?.description
                 : (
                   <span>
-                    {rogersCategories.find(c => c.name === userCategory)?.description} 
+                    {rogersCategories.find(c => c.name === userCategory)?.description}
                     <span className="text-xs opacity-70 ml-2">(Uw score)</span>
                   </span>
                 )
               }
             </p>
-            <div 
+            <div
               className="mt-4 flex gap-1 h-6 rounded-full overflow-hidden bg-secondary cursor-help"
               onMouseLeave={() => setHoveredCategory(null)}
             >
               {rogersCategories.map((category) => (
-                <div 
+                <div
                   key={category.name}
-                  className={`h-full ${category.color} transition-all duration-200 ${
-                    hoveredCategory === category.name || (!hoveredCategory && userCategory === category.name)
-                      ? "opacity-100 scale-105" 
-                      : "opacity-30 hover:opacity-80"
-                  }`}
+                  className={`h-full ${category.color} transition-all duration-200 ${hoveredCategory === category.name || (!hoveredCategory && userCategory === category.name)
+                    ? "opacity-100 scale-105"
+                    : "opacity-30 hover:opacity-80"
+                    }`}
                   style={{ width: category.width }}
                   onMouseEnter={() => setHoveredCategory(category.name)}
                   title={category.description}
@@ -213,26 +197,78 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Recommended Actions */}
+          {/* Quiz Results Overview */}
           <div className="md:col-span-1 lg:col-span-2 bg-card border border-border rounded-xl p-6 shadow-sm">
-            <h3 className="font-semibold text-foreground mb-4">Aanbevolen Acties</h3>
-            <div className="space-y-4">
-              {recommendedActions.map((action) => (
-                <div key={action.id} className="border border-border rounded-lg p-3">
-                  <div className="flex justify-between items-start mb-1">
-                    <h4 className="font-medium text-sm text-foreground">{action.title}</h4>
-                    <span className={`text-[10px] px-2 py-0.5 rounded-full uppercase font-bold ${
-                      action.status === 'in-progress' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'
-                    }`}>
-                      {action.status === 'in-progress' ? 'Bezig' : 'Te doen'}
-                    </span>
+            <h3 className="font-semibold text-foreground mb-4">Mijn Resultaten</h3>
+            <div className="grid grid-cols-1 gap-4">
+              {/* Organization Scan Result */}
+              <div className="border border-border rounded-xl p-4 flex flex-col justify-between hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="p-2 bg-blue-100 dark:bg-blue-900/20 text-blue-600 rounded-lg">
+                    <Building2 className="h-5 w-5" />
                   </div>
-                  <p className="text-xs text-muted-foreground">{action.description}</p>
+                  <div>
+                    <h4 className="font-bold text-foreground">Organisatie Scan</h4>
+                    <p className="text-xs text-muted-foreground">Strategische AI-volwassenheid</p>
+                  </div>
                 </div>
-              ))}
-              <Button variant="outline" className="w-full text-xs">
-                Bekijk alle acties
-              </Button>
+
+                {score ? (
+                  <div className="mt-2">
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <span className="text-2xl font-black text-blue-600">{score}%</span>
+                      <span className="text-sm font-medium text-foreground">{level}</span>
+                    </div>
+                    <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-full bg-blue-600 rounded-full" style={{ width: `${score}%` }} />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mt-2 text-center">
+                    <p className="text-sm text-muted-foreground mb-3">Nog niet afgerond</p>
+                    <Button variant="outline" size="sm" onClick={() => navigate('/assessment')} className="w-full">
+                      Start Scan
+                    </Button>
+                  </div>
+                )}
+              </div>
+
+              {/* Employee Scan Result */}
+              <div className="border border-border rounded-xl p-4 flex flex-col justify-between hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="p-2 bg-emerald-100 dark:bg-emerald-900/20 text-emerald-600 rounded-lg">
+                    <Users className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-foreground">Medewerker Scan</h4>
+                    <p className="text-xs text-muted-foreground">Persoonlijke AI-vaardigheden</p>
+                  </div>
+                </div>
+
+                {employeeScore ? (
+                  <div className="mt-2">
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <span className="text-2xl font-black text-emerald-600">{employeeScore}</span>
+                      <span className="text-sm text-muted-foreground">/ 5.0</span>
+                    </div>
+                    <div className="flex gap-1 h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                      {[1, 2, 3, 4, 5].map((s) => (
+                        <div
+                          key={s}
+                          className={`flex-1 transition-colors ${parseFloat(employeeScore) >= s ? 'bg-emerald-500' : 'bg-transparent'}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mt-2 text-center">
+                    <p className="text-sm text-muted-foreground mb-3">Nog niet afgerond</p>
+                    <Button variant="outline" size="sm" onClick={() => navigate('/assessment')} className="w-full">
+                      Start Scan
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
