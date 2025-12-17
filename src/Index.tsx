@@ -697,29 +697,56 @@ const Index = () => {
           <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
             {/* Deel 1: Ethiek */}
             <div className="space-y-6">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-lg text-primary">
-                  <Scale className="h-6 w-6" />
+              <div className="space-y-6 text-sm text-muted-foreground">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2 bg-primary/10 rounded-lg text-primary">
+                    <Scale className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground">Ethiek & Verantwoord AI-gebruik</h3>
                 </div>
-                <h3 className="text-2xl font-bold text-foreground">Ethiek & Privacy</h3>
+
+                <p className="leading-relaxed">
+                  Verantwoord omgaan met AI is essentieel voor een veilige werkomgeving. We volgen hierbij de richtlijnen van de AI Act.
+                </p>
+
+                <div className="space-y-4">
+                  <h4 className="font-semibold text-foreground flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                    Risico's & Menselijk Toezicht
+                  </h4>
+                  <p>
+                    AI kan onbedoeld bevooroordeeld zijn (bias) of discrimineren. Neem adviezen van AI daarom nooit klakkeloos over.
+                    <strong> Human-in-the-loop</strong> is cruciaal: een mens moet altijd de eindbeslissing kunnen controleren en corrigeren.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="font-semibold text-foreground flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                    Verantwoordelijkheid & Transparantie
+                  </h4>
+                  <ul className="space-y-2 mt-2">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      <span>De organisatie blijft eindverantwoordelijk voor AI-besluiten, ook bij gebruik van externe software.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      <span>Transparantie is de norm: medewerkers weten altijd wanneer en waarvoor AI wordt ingezet.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="font-semibold text-foreground flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                    Privacy & Data
+                  </h4>
+                  <p>
+                    We passen <strong>dataminimalisatie</strong> toe: we verzamelen alleen gegevens die strikt noodzakelijk zijn voor het doel. Persoonsgegevens worden nooit zomaar gedeeld met AI-modellen zonder beveiliging.
+                  </p>
+                </div>
               </div>
-              <p className="text-muted-foreground leading-relaxed">
-                Dit platform houdt rekening met de privacy van medewerkers en een zorgvuldige omgang met data, in lijn met de basisprincipes van de AI Act.
-              </p>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3 text-sm text-foreground/80">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                  <span>Transparantie over wat er precies wordt gemeten</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm text-foreground/80">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                  <span>Geen misbruik van data voor andere doeleinden</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm text-foreground/80">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                  <span>Resultaten bedoeld voor ontwikkeling, niet voor straf</span>
-                </li>
-              </ul>
             </div>
 
             {/* Deel 2: Project Info */}
