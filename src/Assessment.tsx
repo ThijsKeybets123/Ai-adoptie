@@ -308,86 +308,108 @@ const Assessment = () => {
 
 		return (
 			<div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center p-4 relative overflow-hidden">
-				{/* Decorative background elements */}
+				{/* Decorative background elements - Colorful but professional */}
 				<div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-					<div className="absolute top-[10%] left-[30%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-3xl opacity-30 animate-pulse" />
+					<div className="absolute top-[5%] left-[10%] w-[40%] h-[40%] bg-blue-100 dark:bg-blue-900/20 rounded-full blur-[100px] opacity-60 animate-pulse" />
+					<div className="absolute bottom-[10%] right-[10%] w-[40%] h-[40%] bg-indigo-100 dark:bg-indigo-900/20 rounded-full blur-[100px] opacity-60 animate-pulse delay-1000" />
+					<div className="absolute top-[40%] left-[60%] w-[20%] h-[20%] bg-cyan-100 dark:bg-cyan-900/20 rounded-full blur-[80px] opacity-40" />
 				</div>
 
-				<div className="max-w-3xl w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2.5rem] shadow-2xl shadow-slate-200/50 dark:shadow-slate-950/50 p-12 md:p-16 text-center animate-fade-in-up relative z-10">
+				<div className="max-w-4xl w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white/50 dark:border-slate-800 rounded-[2.5rem] shadow-2xl shadow-indigo-200/40 dark:shadow-slate-950/50 p-8 md:p-12 text-center animate-fade-in-up relative z-10 ring-1 ring-indigo-50 dark:ring-slate-800">
+
+					{/* Header Icon */}
 					<div className="mb-8 flex justify-center">
-						<div className="h-24 w-24 bg-gradient-to-tr from-primary to-blue-600 rounded-3xl flex items-center justify-center shadow-lg shadow-blue-500/30 transform rotate-3">
-							<BarChart3 className="h-12 w-12 text-white" />
+						<div className="relative group">
+							<div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+							<div className="relative h-24 w-24 bg-gradient-to-tr from-white to-blue-50 dark:from-slate-800 dark:to-slate-900 rounded-3xl flex items-center justify-center shadow-xl ring-1 ring-black/5">
+								<BarChart3 className="h-10 w-10 text-blue-600 dark:text-blue-400" />
+							</div>
 						</div>
 					</div>
 
-					<h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">
+					<h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-2 tracking-tight">
 						Resultaat Nulmeting
 					</h1>
-					<p className="text-xl text-slate-600 dark:text-slate-400 mb-12 leading-relaxed max-w-2xl mx-auto">
-						Uw organisatie scoort <strong className="text-slate-900 dark:text-white">{score}%</strong> op de AI-volwassenheidsschaal.
-						<br />Dit plaatst u in de categorie:
-					</p>
+					<div className="h-1.5 w-24 mx-auto bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full mb-8"></div>
 
-					<div className="mb-12 relative inline-block">
-						<div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full"></div>
-						<div className="relative text-6xl md:text-7xl font-black bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent pb-4">
-							{level}
-						</div>
-					</div>
+					<div className="grid md:grid-cols-2 gap-8 mb-12 items-center">
+						{/* Score Left */}
+						<div className="bg-slate-50 dark:bg-slate-800/50 rounded-3xl p-8 border border-slate-100 dark:border-slate-700 relative overflow-hidden group hover:border-blue-200 dark:hover:border-blue-800 transition-colors">
+							<div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-blue-500/10 transition-colors"></div>
 
-					{/* Benchmark Statistics Section */}
-					<div className="mb-12 w-full max-w-lg mx-auto bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-6 border border-slate-100 dark:border-slate-800">
-						<h3 className="text-lg font-bold mb-4 text-slate-900 dark:text-white flex items-center justify-center gap-2">
-							Benchmark Resultaten
-						</h3>
-						<div className="space-y-4">
-							<div>
-								<div className="flex justify-between text-sm mb-1">
-									<span className="font-medium text-slate-700 dark:text-slate-300">Uw Organisatie</span>
-									<span className="font-bold text-primary">{score}%</span>
-								</div>
-								<div className="h-3 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-									<div className="h-full bg-primary rounded-full transition-all duration-1000" style={{ width: `${score}%` }} />
-								</div>
+							<p className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Uw Score</p>
+							<div className="relative inline-block">
+								<span className="text-7xl font-black bg-gradient-to-b from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 bg-clip-text text-transparent tracking-tighter">
+									{score}%
+								</span>
 							</div>
 
-							<div>
-								<div className="flex justify-between text-sm mb-1">
-									<span className="font-medium text-slate-500 dark:text-slate-400">Marktgemiddelde</span>
-									<span className="font-bold text-slate-500 dark:text-slate-400">42%</span>
+							<div className="mt-4">
+								<div className="flex justify-between text-xs font-semibold uppercase text-slate-400 mb-2">
+									<span>Beginner</span>
+									<span>Leader</span>
 								</div>
-								<div className="h-3 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-									<div className="h-full bg-slate-400 dark:bg-slate-600 rounded-full" style={{ width: '42%' }} />
+								<div className="h-4 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden p-0.5">
+									<div
+										className="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full shadow-sm relative"
+										style={{ width: `${score}%` }}
+									>
+										<div className="absolute inset-0 bg-white/20 animate-[shimmer_2s_infinite]"></div>
+									</div>
 								</div>
 							</div>
 						</div>
-						<p className="text-xs text-slate-400 mt-4 italic">
-							Gebaseerd op geaggregeerde data van vergelijkbare organisaties in de sector.
-						</p>
+
+						{/* Level Right */}
+						<div className="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-3xl p-8 text-white shadow-xl shadow-blue-900/20 relative overflow-hidden">
+							<div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+							<div className="absolute bottom-0 left-0 w-40 h-40 bg-purple-500/20 rounded-full blur-2xl -ml-20 -mb-20"></div>
+
+							<div className="relative z-10">
+								<p className="text-blue-100 font-medium mb-1">Maturity Level</p>
+								<h2 className="text-4xl font-bold mb-4 tracking-tight">{level}</h2>
+								<p className="text-blue-50/90 text-sm leading-relaxed">
+									{level === "Beginner" && "U staat aan het begin van de reis. Veel ruimte voor groei en snelle wins."}
+									{level === "Explorer" && "U bent op weg! De eerste stappen zijn gezet en experimenten lopen."}
+									{level === "Adopter" && "Goed bezig! AI integratie begint vorm te krijgen in de processen."}
+									{level === "Leader" && "Uitstekend! U loopt voorop in innovatie en AI-implementatie."}
+								</p>
+							</div>
+						</div>
 					</div>
 
-					<div className="bg-slate-50 dark:bg-slate-950/50 rounded-2xl p-8 md:p-10 mb-12 text-left border border-slate-100 dark:border-slate-800 relative overflow-hidden">
-						<div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-500 to-cyan-500"></div>
-						<h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white flex items-center gap-2">
-							<Brain className="h-5 w-5 text-blue-500" />
-							Strategisch Advies:
-						</h3>
-						<p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-							{level === "Beginner" &&
-								"Focus op het creëren van bewustzijn en het identificeren van de eerste eenvoudige use cases. Start met educatie en inspiratiesessies."}
-							{level === "Explorer" &&
-								"Begin met gestructureerde experimenten (pilots) en werk aan een basis datastrategie. Zoek interne ambassadeurs die de kar kunnen trekken."}
-							{level === "Adopter" &&
-								"Schaal succesvolle pilots op naar productie. Formaliseer governance, richtlijnen en investeer in geavanceerde training voor specifieke rollen."}
-							{level === "Leader" &&
-								"Blijf innoveren en zoek naar disruptieve mogelijkheden. Deel kennis, optimaliseer processen volledig met AI en fungeer als voorbeeld in de industrie."}
-						</p>
+					{/* Benchmark & Advice */}
+					<div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl p-1 shadow-sm mb-10">
+						<div className="bg-slate-50 dark:bg-slate-900/50 rounded-[1.3rem] p-8 md:p-10 relative overflow-hidden">
+							<div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-indigo-500 to-purple-500"></div>
+
+							<div className="flex flex-col md:flex-row gap-6 md:items-start">
+								<div className="flex-shrink-0 p-3 bg-indigo-50 dark:bg-indigo-900/30 rounded-2xl text-indigo-600 dark:text-indigo-400">
+									<Brain className="h-8 w-8" />
+								</div>
+								<div>
+									<h3 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">
+										Strategisch Advies
+									</h3>
+									<p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+										{level === "Beginner" &&
+											"Focus op het creëren van bewustzijn en het identificeren van de eerste eenvoudige use cases. Start met educatie en inspiratiesessies."}
+										{level === "Explorer" &&
+											"Begin met gestructureerde experimenten (pilots) en werk aan een basis datastrategie. Zoek interne ambassadeurs die de kar kunnen trekken."}
+										{level === "Adopter" &&
+											"Schaal succesvolle pilots op naar productie. Formaliseer governance, richtlijnen en investeer in geavanceerde training voor specifieke rollen."}
+										{level === "Leader" &&
+											"Blijf innoveren en zoek naar disruptieve mogelijkheden. Deel kennis, optimaliseer processen volledig met AI en fungeer als voorbeeld in de industrie."}
+									</p>
+								</div>
+							</div>
+						</div>
 					</div>
 
 					<div className="flex flex-col sm:flex-row gap-4 justify-center">
-						<Button onClick={() => navigate("/")} variant="outline" size="lg" className="h-14 px-8 text-lg rounded-xl border-2 hover:bg-slate-50 dark:hover:bg-slate-800 gap-2">
-							<Home className="h-5 w-5" />
-							Terug naar Home
+						<Button onClick={() => navigate("/")} variant="ghost" size="lg" className="h-14 px-8 text-lg rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400">
+							<Home className="h-5 w-5 mr-2" />
+							Terug
 						</Button>
 						<Button
 							onClick={() => {
@@ -395,10 +417,10 @@ const Assessment = () => {
 								setCurrentQuestion(0);
 								setAnswers(new Array(questions.length).fill(-1));
 								setStarted(false);
-								setAssessmentType(null); // Return to choice
+								setAssessmentType(null);
 							}}
 							size="lg"
-							className="h-14 px-8 text-lg rounded-xl bg-slate-900 hover:bg-slate-800 text-white shadow-lg shadow-slate-900/10"
+							className="h-14 px-10 text-lg rounded-xl bg-gradient-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 text-white shadow-xl shadow-slate-900/20 transform transition-all hover:scale-105 active:scale-95"
 						>
 							Volgend Assessment
 						</Button>

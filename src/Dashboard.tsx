@@ -198,36 +198,42 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Quiz Results Overview */}
-          <div className="md:col-span-1 lg:col-span-2 bg-card border border-border rounded-xl p-6 shadow-sm">
-            <h3 className="font-semibold text-foreground mb-4">Mijn Resultaten</h3>
-            <div className="grid grid-cols-1 gap-4">
+          {/* Quiz Results Overview - Enhanced Colors */}
+          <div className="md:col-span-1 lg:col-span-2 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 shadow-lg shadow-indigo-100/50 dark:shadow-none relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-bl-full -mr-10 -mt-10 transition-transform duration-500 group-hover:scale-110"></div>
+
+            <h3 className="font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2 relative z-10">
+              <div className="h-8 w-1 bg-gradient-to-b from-blue-500 to-indigo-500 rounded-full"></div>
+              Mijn Resultaten
+            </h3>
+
+            <div className="grid grid-cols-1 gap-4 relative z-10">
               {/* Organization Scan Result */}
-              <div className="border border-border rounded-xl p-4 flex flex-col justify-between hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="p-2 bg-blue-100 dark:bg-blue-900/20 text-blue-600 rounded-lg">
-                    <Building2 className="h-5 w-5" />
+              <div className="bg-slate-50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-xl p-5 hover:shadow-md hover:border-blue-200 dark:hover:border-blue-900 transition-all duration-300">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 text-blue-600 dark:text-blue-400 rounded-xl shadow-sm">
+                    <Building2 className="h-6 w-6" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-foreground">Organisatie Scan</h4>
-                    <p className="text-xs text-muted-foreground">Strategische AI-volwassenheid</p>
+                    <h4 className="font-bold text-slate-900 dark:text-white">Organisatie Scan</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Strategische AI-volwassenheid</p>
                   </div>
                 </div>
 
                 {score ? (
                   <div className="mt-2">
-                    <div className="flex items-baseline gap-2 mb-1">
-                      <span className="text-2xl font-black text-blue-600">{score}%</span>
-                      <span className="text-sm font-medium text-foreground">{level}</span>
+                    <div className="flex items-baseline justify-between mb-2">
+                      <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">{level}</span>
+                      <span className="text-2xl font-black bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">{score}%</span>
                     </div>
-                    <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                      <div className="h-full bg-blue-600 rounded-full" style={{ width: `${score}%` }} />
+                    <div className="h-2.5 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-sm" style={{ width: `${score}%` }} />
                     </div>
                   </div>
                 ) : (
                   <div className="mt-2 text-center">
-                    <p className="text-sm text-muted-foreground mb-3">Nog niet afgerond</p>
-                    <Button variant="outline" size="sm" onClick={() => navigate('/assessment')} className="w-full">
+                    <p className="text-sm text-slate-500 mb-3">Nog niet afgerond</p>
+                    <Button variant="outline" size="sm" onClick={() => navigate('/assessment')} className="w-full border-dashed border-slate-300 hover:border-blue-400 hover:text-blue-600">
                       Start Scan
                     </Button>
                   </div>
@@ -235,36 +241,36 @@ const Dashboard = () => {
               </div>
 
               {/* Employee Scan Result */}
-              <div className="border border-border rounded-xl p-4 flex flex-col justify-between hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="p-2 bg-emerald-100 dark:bg-emerald-900/20 text-emerald-600 rounded-lg">
-                    <Users className="h-5 w-5" />
+              <div className="bg-slate-50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-xl p-5 hover:shadow-md hover:border-emerald-200 dark:hover:border-emerald-900 transition-all duration-300">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="p-3 bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/30 dark:to-teal-900/30 text-emerald-600 dark:text-emerald-400 rounded-xl shadow-sm">
+                    <Users className="h-6 w-6" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-foreground">Medewerker Scan</h4>
-                    <p className="text-xs text-muted-foreground">Persoonlijke AI-vaardigheden</p>
+                    <h4 className="font-bold text-slate-900 dark:text-white">Medewerker Scan</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Persoonlijke AI-vaardigheden</p>
                   </div>
                 </div>
 
                 {employeeScore ? (
                   <div className="mt-2">
-                    <div className="flex items-baseline gap-2 mb-1">
-                      <span className="text-2xl font-black text-emerald-600">{employeeScore}</span>
-                      <span className="text-sm text-muted-foreground">/ 5.0</span>
+                    <div className="flex items-baseline justify-between mb-2">
+                      <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">Score</span>
+                      <span className="text-2xl font-black bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">{employeeScore} <span className="text-sm text-slate-400 font-normal">/ 5.0</span></span>
                     </div>
-                    <div className="flex gap-1 h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                    <div className="flex gap-1.5 h-2.5 w-full">
                       {[1, 2, 3, 4, 5].map((s) => (
                         <div
                           key={s}
-                          className={`flex-1 transition-colors ${parseFloat(employeeScore) >= s ? 'bg-emerald-500' : 'bg-transparent'}`}
+                          className={`flex-1 rounded-full transition-colors ${parseFloat(employeeScore) >= s ? 'bg-gradient-to-r from-emerald-500 to-teal-500' : 'bg-slate-200 dark:bg-slate-800'}`}
                         />
                       ))}
                     </div>
                   </div>
                 ) : (
                   <div className="mt-2 text-center">
-                    <p className="text-sm text-muted-foreground mb-3">Nog niet afgerond</p>
-                    <Button variant="outline" size="sm" onClick={() => navigate('/assessment')} className="w-full">
+                    <p className="text-sm text-slate-500 mb-3">Nog niet afgerond</p>
+                    <Button variant="outline" size="sm" onClick={() => navigate('/assessment')} className="w-full border-dashed border-slate-300 hover:border-emerald-400 hover:text-emerald-600">
                       Start Scan
                     </Button>
                   </div>
