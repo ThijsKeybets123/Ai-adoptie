@@ -181,28 +181,32 @@ const strategies = [
 
 const cases = [
   {
-    company: "Global Brand Campaign",
-    title: "Gepersonaliseerde Video Campagne",
-    description: "Inzet van deepfake technologie om celebrities digitaal in te zetten voor hyper-gepersonaliseerde advertenties voor lokale markten, waardoor engagement significant steeg.",
-    impact: "130.000+ gepersonaliseerde advertenties gegenereerd, 95% positieve sentiment",
+    company: "Coca-Cola",
+    title: "Create Real Magic",
+    description: "Coca-Cola nodigde digital artists uit om met GPT-4 en DALL-E eigen kunstwerken te maken op basis van iconische Coca-Cola assets. De beste inzendingen verschenen op billboards in Times Square.",
+    impact: "Miljoenen unieke creaties, enorme brand engagement wereldwijd.",
+    url: "https://www.coca-colacompany.com/media-center/coca-cola-invites-digital-artists-to-create-real-magic-using-new-ai-platform"
   },
   {
-    company: "Content Studio",
-    title: "AI-gegenereerde product visuals",
-    description: "Gebruik van generative AI om snel meerdere product visual varianten te creëren voor verschillende markten en kanalen, waardoor de time-to-market drastisch is verkort.",
-    impact: "70% snellere content productie, 50% kostenbesparing op fotografie",
+    company: "Klarna",
+    title: "AI Klantenservice",
+    description: "De AI-assistent van Klarna handelde in de eerste maand 2,3 miljoen gesprekken af (2/3e van totaal). Dit deed het werk van 700 fulltime agents, met hogere klanttevredenheid.",
+    impact: "$40 miljoen winstverbetering verwacht in 2024.",
+    url: "https://www.klarna.com/international/press/klarna-ai-assistant-handles-two-thirds-of-customer-service-chats-in-its-first-month/"
   },
   {
-    company: "Interactive Agency",
-    title: "AI Art Platform",
-    description: "Lancering van een platform waar consumenten zelf AI-kunstwerken kunnen maken met merkelementen, wat zorgde voor enorme engagement en user-generated content.",
-    impact: "120.000+ AI artworks gegenereerd, 30% stijging in social media engagement",
+    company: "Spotify",
+    title: "AI DJ",
+    description: "Een gepersonaliseerde AI-gids in je broekzak die muziek kiest die jij leuk vindt en erover praat met een realistische stem. Verhoogt de luistertijd en gebruikersbinding aanzienlijk.",
+    impact: "Sterke stijging in user retention en dagelijks gebruik.",
+    url: "https://newsroom.spotify.com/2023-02-22/spotify-debuts-a-new-ai-dj-right-in-your-pocket/"
   },
   {
-    company: "E-commerce Giant",
-    title: "AI-gedreven personalisatie",
-    description: "Gebruik van AI om consumenten voorkeuren te analyseren en gepersonaliseerde product aanbevelingen te doen, waardoor conversie in e-commerce significant steeg.",
-    impact: "25% hogere conversie op e-commerce, 40% betere customer satisfaction scores",
+    company: "Heinz",
+    title: "A.I. Ketchup",
+    description: "Heinz vroeg DALL-E 2 om 'ketchup' te tekenen. Het resultaat? De AI tekende bijna altijd een Heinz-fles. Dit werd een virale campagne die bewees: Ketchup = Heinz.",
+    impact: "Virale hit op social media en winnaar van diverse awards.",
+    url: "https://newsroom.kraftheinz.com/news/news-details/2022/Heinz-Uses-AI-to-Prove-That-It-Has-Must-Be-Heinz/default.aspx"
   },
 ];
 
@@ -321,7 +325,6 @@ const Index = () => {
   const [selectedBarrier, setSelectedBarrier] = useState<typeof barriers[0] | null>(null);
   const [selectedStrategy, setSelectedStrategy] = useState<typeof strategies[0] | null>(null);
   const [selectedBenefit, setSelectedBenefit] = useState<typeof benefits[0] | null>(null);
-  const [expandedModule, setExpandedModule] = useState<number | null>(null);
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -466,7 +469,6 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {/* Note: Hardcoded to match ReadinessScan domains precisely */}
             {[
               {
                 id: 0,
@@ -633,22 +635,23 @@ const Index = () => {
       </section>
 
       {/* Cases Section */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-slate-900/5 -skew-y-3 transform origin-top-left scale-110" />
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Praktijkcases
+              AI in de Praktijk
             </h2>
             <p className="text-lg text-muted-foreground">
-              Concrete voorbeelden van AI-implementaties in de marketingwereld.
+              Actuele voorbeelden van AI-toepassingen bij toonaangevende merken.
             </p>
           </div>
 
-          <Carousel className="w-full max-w-5xl mx-auto">
-            <CarouselContent>
+          <Carousel className="w-full max-w-6xl mx-auto">
+            <CarouselContent className="-ml-4">
               {cases.map((caseItem, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/2">
-                  <div className="p-1">
+                <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/2 xl:basis-1/4 h-auto">
+                  <div className="h-full">
                     <CaseCard {...caseItem} />
                   </div>
                 </CarouselItem>
@@ -820,7 +823,7 @@ const Index = () => {
       />
 
       <Chatbot />
-    </div>
+    </div >
   );
 };
 
