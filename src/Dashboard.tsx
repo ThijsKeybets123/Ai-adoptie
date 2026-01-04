@@ -105,8 +105,89 @@ const Dashboard = () => {
             </div>
           </div>
 
+          {/* Quiz Results Overview - Enhanced Colors - MOVED UP & FULL WIDTH */}
+          <div className="md:col-span-2 lg:col-span-4 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 shadow-lg shadow-indigo-100/50 dark:shadow-none relative overflow-hidden group animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-bl-full -mr-10 -mt-10 transition-transform duration-500 group-hover:scale-110"></div>
+
+            <h3 className="font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2 relative z-10">
+              <div className="h-8 w-1 bg-gradient-to-b from-blue-500 to-indigo-500 rounded-full"></div>
+              Mijn Resultaten
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+              {/* Organization Scan Result */}
+              <div className="bg-slate-50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-xl p-5 hover:shadow-md hover:border-blue-200 dark:hover:border-blue-900 transition-all duration-300">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 text-blue-600 dark:text-blue-400 rounded-xl shadow-sm">
+                    <Building2 className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 dark:text-white">Organisatie Scan</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Strategische AI-volwassenheid</p>
+                  </div>
+                </div>
+
+                {score ? (
+                  <div className="mt-2">
+                    <div className="flex items-baseline justify-between mb-2">
+                      <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">{level}</span>
+                      <span className="text-2xl font-black bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">{score}%</span>
+                    </div>
+                    <div className="h-2.5 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-sm" style={{ width: `${score}%` }} />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mt-2 text-center">
+                    <p className="text-sm text-slate-500 mb-3">Nog niet afgerond</p>
+                    <Button variant="outline" size="sm" onClick={() => navigate('/assessment')} className="w-full border-dashed border-slate-300 hover:border-blue-400 hover:text-blue-600">
+                      Start Scan
+                    </Button>
+                  </div>
+                )}
+              </div>
+
+              {/* Employee Scan Result */}
+              <div className="bg-slate-50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-xl p-5 hover:shadow-md hover:border-emerald-200 dark:hover:border-emerald-900 transition-all duration-300">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="p-3 bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/30 dark:to-teal-900/30 text-emerald-600 dark:text-emerald-400 rounded-xl shadow-sm">
+                    <Users className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 dark:text-white">Medewerker Scan</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Persoonlijke AI-vaardigheden</p>
+                  </div>
+                </div>
+
+                {employeeScore ? (
+                  <div className="mt-2">
+                    <div className="flex items-baseline justify-between mb-2">
+                      <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">Score</span>
+                      <span className="text-2xl font-black bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">{employeeScore} <span className="text-sm text-slate-400 font-normal">/ 5.0</span></span>
+                    </div>
+                    <div className="flex gap-1.5 h-2.5 w-full">
+                      {[1, 2, 3, 4, 5].map((s) => (
+                        <div
+                          key={s}
+                          className={`flex-1 rounded-full transition-colors ${parseFloat(employeeScore) >= s ? 'bg-gradient-to-r from-emerald-500 to-teal-500' : 'bg-slate-200 dark:bg-slate-800'}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mt-2 text-center">
+                    <p className="text-sm text-slate-500 mb-3">Nog niet afgerond</p>
+                    <Button variant="outline" size="sm" onClick={() => navigate('/assessment')} className="w-full border-dashed border-slate-300 hover:border-emerald-400 hover:text-emerald-600">
+                      Start Scan
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
           {/* Learning Module - Prominent Placement */}
-          <div className="md:col-span-2 lg:col-span-4 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
+          <div className="md:col-span-2 lg:col-span-4 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
             <LearningModule />
           </div>
 
@@ -193,87 +274,6 @@ const Dashboard = () => {
                   </div>
                 </div>
               ))}
-            </div>
-          </div>
-
-          {/* Quiz Results Overview - Enhanced Colors */}
-          <div className="md:col-span-1 lg:col-span-2 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 shadow-lg shadow-indigo-100/50 dark:shadow-none relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-bl-full -mr-10 -mt-10 transition-transform duration-500 group-hover:scale-110"></div>
-
-            <h3 className="font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2 relative z-10">
-              <div className="h-8 w-1 bg-gradient-to-b from-blue-500 to-indigo-500 rounded-full"></div>
-              Mijn Resultaten
-            </h3>
-
-            <div className="grid grid-cols-1 gap-4 relative z-10">
-              {/* Organization Scan Result */}
-              <div className="bg-slate-50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-xl p-5 hover:shadow-md hover:border-blue-200 dark:hover:border-blue-900 transition-all duration-300">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 text-blue-600 dark:text-blue-400 rounded-xl shadow-sm">
-                    <Building2 className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 dark:text-white">Organisatie Scan</h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Strategische AI-volwassenheid</p>
-                  </div>
-                </div>
-
-                {score ? (
-                  <div className="mt-2">
-                    <div className="flex items-baseline justify-between mb-2">
-                      <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">{level}</span>
-                      <span className="text-2xl font-black bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">{score}%</span>
-                    </div>
-                    <div className="h-2.5 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-sm" style={{ width: `${score}%` }} />
-                    </div>
-                  </div>
-                ) : (
-                  <div className="mt-2 text-center">
-                    <p className="text-sm text-slate-500 mb-3">Nog niet afgerond</p>
-                    <Button variant="outline" size="sm" onClick={() => navigate('/assessment')} className="w-full border-dashed border-slate-300 hover:border-blue-400 hover:text-blue-600">
-                      Start Scan
-                    </Button>
-                  </div>
-                )}
-              </div>
-
-              {/* Employee Scan Result */}
-              <div className="bg-slate-50 dark:bg-slate-950/50 border border-slate-100 dark:border-slate-800 rounded-xl p-5 hover:shadow-md hover:border-emerald-200 dark:hover:border-emerald-900 transition-all duration-300">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/30 dark:to-teal-900/30 text-emerald-600 dark:text-emerald-400 rounded-xl shadow-sm">
-                    <Users className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 dark:text-white">Medewerker Scan</h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Persoonlijke AI-vaardigheden</p>
-                  </div>
-                </div>
-
-                {employeeScore ? (
-                  <div className="mt-2">
-                    <div className="flex items-baseline justify-between mb-2">
-                      <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">Score</span>
-                      <span className="text-2xl font-black bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">{employeeScore} <span className="text-sm text-slate-400 font-normal">/ 5.0</span></span>
-                    </div>
-                    <div className="flex gap-1.5 h-2.5 w-full">
-                      {[1, 2, 3, 4, 5].map((s) => (
-                        <div
-                          key={s}
-                          className={`flex-1 rounded-full transition-colors ${parseFloat(employeeScore) >= s ? 'bg-gradient-to-r from-emerald-500 to-teal-500' : 'bg-slate-200 dark:bg-slate-800'}`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="mt-2 text-center">
-                    <p className="text-sm text-slate-500 mb-3">Nog niet afgerond</p>
-                    <Button variant="outline" size="sm" onClick={() => navigate('/assessment')} className="w-full border-dashed border-slate-300 hover:border-emerald-400 hover:text-emerald-600">
-                      Start Scan
-                    </Button>
-                  </div>
-                )}
-              </div>
             </div>
           </div>
         </div>
