@@ -105,7 +105,12 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Stats Cards */}
+          {/* Learning Module - Prominent Placement */}
+          <div className="md:col-span-2 lg:col-span-4 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
+            <LearningModule />
+          </div>
+
+          {/* Stats Cards Row */}
           <div className="bg-card border border-border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold text-foreground">AI Volwassenheid</h3>
@@ -130,27 +135,32 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="bg-card border border-border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+          <div className="md:col-span-2 lg:col-span-2 bg-card border border-border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold text-foreground">Rogers Categorie</h3>
               <Users className="h-5 w-5 text-blue-500" />
             </div>
-            <div className="text-3xl font-bold text-foreground mb-1">
-              {hoveredCategory ? hoveredCategory : userCategory}
+            <div className="flex items-end justify-between mb-4">
+              <div>
+                <div className="text-3xl font-bold text-foreground mb-1">
+                  {hoveredCategory ? hoveredCategory : userCategory}
+                </div>
+                <p className="text-sm text-muted-foreground h-5">
+                  {hoveredCategory
+                    ? rogersCategories.find(c => c.name === hoveredCategory)?.description
+                    : (
+                      <span>
+                        {rogersCategories.find(c => c.name === userCategory)?.description}
+                        <span className="text-xs opacity-70 ml-2">(Uw score)</span>
+                      </span>
+                    )
+                  }
+                </p>
+              </div>
             </div>
-            <p className="text-sm text-muted-foreground h-5">
-              {hoveredCategory
-                ? rogersCategories.find(c => c.name === hoveredCategory)?.description
-                : (
-                  <span>
-                    {rogersCategories.find(c => c.name === userCategory)?.description}
-                    <span className="text-xs opacity-70 ml-2">(Uw score)</span>
-                  </span>
-                )
-              }
-            </p>
+
             <div
-              className="mt-4 flex gap-1 h-6 rounded-full overflow-hidden bg-secondary cursor-help"
+              className="mt-2 flex gap-1 h-8 rounded-full overflow-hidden bg-secondary cursor-help"
               onMouseLeave={() => setHoveredCategory(null)}
             >
               {rogersCategories.map((category) => (
@@ -168,19 +178,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="bg-card border border-border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-foreground">Certificaten</h3>
-              <Award className="h-5 w-5 text-amber-500" />
-            </div>
-            <div className="text-3xl font-bold text-foreground mb-1">1</div>
-            <p className="text-sm text-muted-foreground">AI Basics behaald</p>
-            <Button variant="ghost" size="sm" className="mt-2 -ml-2 text-primary h-auto p-2">
-              Bekijk certificaat <ArrowRight className="ml-1 h-3 w-3" />
-            </Button>
-          </div>
-
-          {/* Recent Activity */}
+          {/* Recent Activity & Results Row */}
           <div className="md:col-span-1 lg:col-span-2 bg-card border border-border rounded-xl p-6 shadow-sm">
             <h3 className="font-semibold text-foreground mb-4">Recente Activiteit</h3>
             <div className="space-y-4">
@@ -277,10 +275,6 @@ const Dashboard = () => {
                 )}
               </div>
             </div>
-          </div>
-
-          <div className="md:col-span-2 lg:col-span-4 mt-6">
-            <LearningModule />
           </div>
         </div>
       </main>
