@@ -44,14 +44,14 @@ export const RogersAdoptionCurve: React.FC = () => {
             <span className="h-1 w-1 rounded-full bg-emerald-400" />
           </span>
           <h2 className="text-3xl font-semibold leading-tight">
-            Rogers Adoption Curve voor AI binnen FMCG
+            Rogers Adoption Curve voor AI
           </h2>
           <p className="text-base text-slate-300">
             Begrijp hoe teams binnen verschillende adoptiefases vallen. De curve helpt om interventies te richten op de juiste mindset per groep.
           </p>
         </div>
 
-        <div 
+        <div
           ref={cardRef}
           onClick={() => navigate('/rogers-curve')}
           onMouseMove={handleMouseMove}
