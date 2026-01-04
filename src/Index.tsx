@@ -206,7 +206,7 @@ const cases = [
     title: "A.I. Ketchup",
     description: "Heinz vroeg DALL-E 2 om 'ketchup' te tekenen. Het resultaat? De AI tekende bijna altijd een Heinz-fles. Dit werd een virale campagne die bewees: Ketchup = Heinz.",
     impact: "Virale hit op social media en winnaar van diverse awards.",
-    url: "https://newsroom.kraftheinz.com/news/news-details/2022/Heinz-Uses-AI-to-Prove-That-It-Has-Must-Be-Heinz/default.aspx"
+    url: "https://www.adsoftheworld.com/campaigns/a-i-ketchup"
   },
 ];
 
